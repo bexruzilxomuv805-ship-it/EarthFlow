@@ -33,8 +33,8 @@ const earthFrag = /* glsl */ `
     float water = texture2D(uWater, vUv).r;
     vec3 V = normalize(-vP);
     vec3 R = reflect(-L, N);
-    float s = pow(max(dot(R, V), 0.0), 90.0) * water * max(d, 0.0);
-    col += vec3(0.55, 0.65, 0.8) * s * 0.45;
+    float s = pow(max(dot(R, V), 0.0), 260.0) * water * max(d, 0.0);
+    col += vec3(0.55, 0.65, 0.8) * s * 0.3;
     col = mix(col, col * vec3(1.4, 0.78, 0.62), uHeat * 0.4 * dayMix);
     gl_FragColor = vec4(col, 1.0);
     #include <colorspace_fragment>
@@ -66,6 +66,7 @@ const SUN_DEFAULT = new THREE.Vector3(5, 1.6, 4)
 const SUN = SUN_DEFAULT.clone()
 const RAD = Math.PI / 180
 const TILT = 0.2
+const HOME = { lat: 41.3, lon: 64.6 } // O'zbekiston
 
 // Joy (kenglik, uzunlik) -> sfera ustidagi nuqta. Tekstura bilan bir xil xaritalash.
 const toVec = (lat, lon, r = 1) => new THREE.Vector3(
@@ -108,13 +109,13 @@ function Earth({ heat, pulse, playing, live, spots, focusId, onSpot }) {
     const g = group.current
     const spot = spots?.find((x) => x.id === focusId)
     if (live) {
-      // Hozirgi kun-tun: quyosh osti nuqtasi Quyosh tomonga qaraydi
+      // Hozirgi kun-tun: O'zbekiston markazda, Quyosh esa haqiqiy tomondan tushadi
       const { lon, decl } = liveSun()
-      SUN.set(5, 6.4 * Math.tan(decl), 4)
-      const azSun = Math.atan2(SUN.x, SUN.z)
-      const aLocal = Math.atan2(Math.cos(lon * RAD), -Math.sin(lon * RAD))
-      g.rotation.y += wrap(azSun - aLocal - g.rotation.y) * Math.min(1, dt * 3)
-      g.rotation.x += (0 - g.rotation.x) * Math.min(1, dt * 3)
+      const k = Math.min(1, dt * 3)
+      g.rotation.y += wrap(faceY(HOME.lon) - g.rotation.y) * k
+      g.rotation.x += (HOME.lat * RAD * 0.8 - g.rotation.x) * k
+      // Quyosh yo'nalishi Yer koordinatasida (quyosh osti nuqtasi), so'ng globusning joriy burilishiga o'tkaziladi
+      SUN.copy(toVec(decl / RAD, lon, 6.4)).applyEuler(g.rotation)
     } else {
       SUN.copy(SUN_DEFAULT)
       if (spot) {
