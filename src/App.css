@@ -363,3 +363,11 @@ html.cursor-on, html.cursor-on * { cursor: none !important; }
 @keyframes cr-orbit { to { transform: rotate(360deg); } }
 @keyframes cr-pulse { from { transform: scale(.3); opacity: .9; } to { transform: scale(2.6); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .cr-spin { animation: none !important; } }
+
+/* ===== Qorong'i rejim: eng orqa fonda tungi Yer rasmi (yorug' rejimda yo'q) ===== */
+:root[data-theme='dark']::before {
+  content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(6,10,28,.5) 0%, rgba(6,10,28,.72) 55%, rgba(6,10,28,.88) 100%),
+    url('/EARTH_RASMLAR/tungi-yer.jpg') center 70% / cover no-repeat;
+}
