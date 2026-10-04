@@ -21,6 +21,7 @@
 }
 
 body {
+  overflow-x: clip;
   background:
     radial-gradient(1200px 600px at 80% -10%, var(--glow1), transparent 60%),
     radial-gradient(900px 500px at -10% 30%, var(--glow2), transparent 60%),
@@ -102,7 +103,22 @@ h2 { font-size: clamp(24px, 3.4vw, 36px); }
 }
 @keyframes drop { from { opacity: 0; transform: translateY(-8px); } to { opacity: 1; transform: none; } }
 @media (max-width: 460px) { .mobile-menu { grid-template-columns: 1fr; } }
-@media (max-width: 380px) { .brand span { display: none; } }
+/* Telefonlar: menyu har qanday kenglikda ekranga sig'sin (logo nomi 480 px dan tor ekranda yashiriladi) */
+@media (max-width: 480px) {
+  .brand span { display: none; }
+  .nav-bar { gap: 8px; }
+  .nav-tools { gap: 6px; flex-shrink: 0; }
+}
+@media (max-width: 360px) {
+  .lang button { padding: 8px 8px; font-size: 11px; }
+  .nav-tools .icon-btn { width: 34px; height: 34px; font-size: 16px; }
+  .nav-bar { padding-left: 12px; padding-right: 12px; }
+}
+@media (max-width: 320px) {
+  .nav .logo { width: 32px; height: 32px; }
+  .lang button { padding: 7px 6px; }
+}
+
 
 /* ===== Hero ===== */
 .hero { display: grid; grid-template-columns: 1.05fr 1fr; align-items: center; gap: 24px; max-width: 1240px; margin: 0 auto; padding: clamp(24px, 5vw, 64px) clamp(16px, 4vw, 48px) 24px; }
