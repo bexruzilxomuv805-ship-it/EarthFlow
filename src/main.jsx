@@ -8,6 +8,9 @@ import '@fontsource/silkscreen/700.css'
 import './index.css'
 import App from './App.jsx'
 import { PrefsProvider } from './prefs.jsx'
+import { setupPwa } from './pwa.js'
+
+setupPwa() // faqat telefonda ishlaydi
 
 // Rasmni sudrash va o'ng tugma menyusini ("Rasmni saqlash") o'chirish
 for (const type of ['dragstart', 'contextmenu']) {

@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain } from 'react-icons/lu'
+import { LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
 import { LANGS } from '../i18n'
 
@@ -8,6 +8,7 @@ const LINKS = [
   { href: '#jukebox', key: 'navJukebox', Icon: LuMusic },
   { href: '#ichki', key: 'navInterior', Icon: LuTarget },
   { href: '#dengiz', key: 'navSea', Icon: LuWaves },
+  { href: '#obhavo', key: 'navWeather', Icon: LuCloudSun },
   { href: '#layers', key: 'navLayers', Icon: LuLayers },
   { href: '#rasmlar', key: 'navPhotos', Icon: LuImage },
   { href: '#sayyoralar', key: 'navPlanets', Icon: LuOrbit },

@@ -7,6 +7,8 @@ import Jukebox from './components/Jukebox'
 import Apod from './components/Apod'
 import Facts from './components/Facts'
 import Quiz from './components/Quiz'
+import Weather from './components/Weather'
+import InstallPrompt from './components/InstallPrompt'
 import SectionHead from './components/SectionHead'
 import { LuPlay, LuArrowDown, LuArrowUp, LuDatabase, LuMusic, LuGlobe } from 'react-icons/lu'
 import './App.css'
@@ -49,6 +51,7 @@ export default function App() {
   return (
     <>
       <Nav />
+      <InstallPrompt />
 
       <main id="top">
         <section className="hero">
@@ -74,6 +77,8 @@ export default function App() {
           <Later h={700}><EarthLayers /></Later>
 
           <Later h={640}><SeaLevel /></Later>
+
+          <Weather />
 
           <section className="section" id="layers" aria-labelledby="layers-title">
             <SectionHead id="layers-title" tag={t('layersTag')} title={t('layersTitle')} lead={t('layersLead')} />

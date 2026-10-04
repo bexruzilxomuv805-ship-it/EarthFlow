@@ -246,8 +246,8 @@ input[type=range] { width: 100%; accent-color: var(--cyan); }
 @media (max-width: 700px) { .int-label { display: none; } }
 
 /* Menyu ostida qolmasligi uchun */
-#jukebox, #ichki, #dengiz, #layers, #rasmlar, #sayyoralar, #faktlar, #viktorina, #how { scroll-margin-top: 84px; }
-@media (max-width: 1100px) { #jukebox, #ichki, #dengiz, #layers, #rasmlar, #sayyoralar, #faktlar, #viktorina, #how { scroll-margin-top: 140px; } }
+#jukebox, #ichki, #dengiz, #obhavo, #layers, #rasmlar, #sayyoralar, #faktlar, #viktorina, #how { scroll-margin-top: 84px; }
+@media (max-width: 1100px) { #jukebox, #ichki, #dengiz, #obhavo, #layers, #rasmlar, #sayyoralar, #faktlar, #viktorina, #how { scroll-margin-top: 140px; } }
 
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition: none !important; animation: none !important; } }
 
@@ -278,3 +278,37 @@ input[type=range] { width: 100%; accent-color: var(--cyan); }
 @media (max-width: 640px) { .quiz-opts { grid-template-columns: 1fr; } }
 
 .chart-skeleton { height: 284px; }
+
+/* ===== Ob-havo (O'zbekiston) ===== */
+.wx-summary { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 20px; }
+.wx-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px 16px; flex-wrap: wrap; margin-top: 16px; }
+.wx-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.wx-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)) !important; margin-top: 14px; }
+.wx-card { border-top: 3px solid var(--tint); padding: 16px; }
+.wx-card h3 { font-size: 17px; margin-bottom: 8px; }
+.wx-main { display: flex; align-items: center; gap: 12px; margin-bottom: 4px; }
+.wx-main svg { font-size: 34px; color: var(--tint); flex: none; }
+.wx-temp { font-size: 38px; font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.wx-temp small { font-size: .42em; margin-left: 2px; color: var(--muted); }
+.wx-meta { margin: 12px 0 0; display: grid; gap: 4px; font-size: 13px; }
+.wx-meta div { display: flex; justify-content: space-between; gap: 8px; }
+.wx-meta dt { display: inline-flex; align-items: center; gap: 5px; color: var(--muted); }
+.wx-meta dd { margin: 0; font-weight: 700; }
+.wx-note { margin-top: 14px; }
+.spin { animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (max-width: 640px) {
+  .wx-summary { grid-template-columns: 1fr; }
+  .wx-grid { grid-template-columns: repeat(2, 1fr) !important; gap: 10px; }
+  .wx-card { padding: 12px; } .wx-temp { font-size: 30px; } .wx-main svg { font-size: 26px; }
+}
+
+/* ===== Ilovani o'rnatish (faqat telefonda) ===== */
+.install { position: fixed; left: 12px; right: 12px; bottom: calc(12px + env(safe-area-inset-bottom)); z-index: 40; display: flex; gap: 12px; align-items: flex-start; padding: 14px 44px 14px 14px; box-shadow: 0 12px 40px rgba(0,0,0,.45); background: var(--nav-bg); backdrop-filter: blur(18px); animation: rise .35s ease-out; }
+.install-icon { border-radius: 12px; flex: none; }
+.install-body p { margin: 2px 0 0; }
+.install-actions { display: flex; gap: 8px; margin-top: 10px; }
+.install-ios { display: flex; align-items: center; gap: 8px; margin-top: 8px !important; font-size: 18px; color: var(--cyan); }
+.install .icon-btn.close { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; font-size: 15px; }
+@keyframes rise { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 640px) { .install { left: auto; right: 20px; max-width: 420px; } }
