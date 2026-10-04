@@ -25,7 +25,11 @@ const utcClock = () => {
 export default function HeroGlobe({ heat, pulse, playing }) {
   const { t } = usePrefs()
   const [live, setLive] = useState(false)
-  const [spot, setSpot] = useState(null)
+  // Havoladan boshlang'ich joy: ?spot=8 (ulashish va tekshirish uchun)
+  const [spot, setSpot] = useState(() => {
+    const n = Number(new URLSearchParams(window.location.search).get('spot'))
+    return SPOTS.some((x) => x.id === n) ? n : null
+  })
   const [clock, setClock] = useState(utcClock)
   const [globeRef, , visible] = useNearScreen()
 
