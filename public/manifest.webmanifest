@@ -1,6 +1,6 @@
 {
-  "name": "Yer jukeboksi",
-  "short_name": "Yer jukeboksi",
+  "name": "EarthFlow",
+  "short_name": "EarthFlow",
   "description": "NASA va NOAA ma'lumotlarini musiqaga aylantiring: Yer haroratini, CO₂ va dengiz sathini eshiting.",
   "lang": "uz",
   "start_url": "./",

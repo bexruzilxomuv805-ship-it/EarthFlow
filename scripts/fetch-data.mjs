@@ -8,7 +8,7 @@ import { writeFileSync } from 'node:fs'
 const out = (name, source, unit, data) =>
   writeFileSync(new URL(`../src/data/${name}.json`, import.meta.url), JSON.stringify({ source, unit, data }))
 
-const UA = 'Mozilla/5.0 (earth-jukebox data fetch)' // ba'zi saytlar User-Agent'siz so'rovni rad etadi
+const UA = 'Mozilla/5.0 (earthflow data fetch)' // ba'zi saytlar User-Agent'siz so'rovni rad etadi
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms))
 
 // Avval fetch, bo'lmasa curl (ba'zi tarmoqlarda Node ulana olmaydi, curl esa ulanadi). 3 marta urinadi.

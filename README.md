@@ -1,4 +1,4 @@
-# Yer jukeboksi (NASA Space Apps)
+# EarthFlow (NASA Space Apps)
 
 React + Vite + three.js (3D Yer) + Tone.js (ovoz) + Recharts (grafik).
 

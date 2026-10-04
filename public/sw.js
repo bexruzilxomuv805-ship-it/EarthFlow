@@ -1,6 +1,6 @@
-// Yer jukeboksi: oddiy offline xizmati.
+// EarthFlow: oddiy offline xizmati.
 // Sahifa (HTML) avval tarmoqdan, bo'lmasa keshdan. Qolgan fayllar keshdan, orqada yangilanadi.
-const CACHE = 'yer-jukeboksi-v1'
+const CACHE = 'earthflow-v1'
 const SHELL = ['./', 'favicon.png', 'logo.png', 'icon-192.png']
 
 self.addEventListener('install', (e) => {

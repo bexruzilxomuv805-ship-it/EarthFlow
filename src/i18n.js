@@ -3,7 +3,7 @@ export const LANGS = ['uz', 'en', 'ru']
 
 export const DICT = {
   uz: {
-    brand: 'Yer jukeboksi',
+    brand: 'EarthFlow',
     navLabel: "Bo'limlar",
     menuOpen: 'Menyuni ochish',
     menuClose: 'Menyuni yopish',
@@ -71,7 +71,7 @@ export const DICT = {
     w_clear: 'Ochiq', w_partly: 'Qisman bulutli', w_cloudy: 'Bulutli', w_fog: 'Tuman', w_rain: "Yomg'ir", w_snow: 'Qor', w_storm: 'Momaqaldiroq',
     rg1: 'Toshkent shahri', rg2: 'Toshkent viloyati', rg3: 'Andijon', rg4: 'Buxoro', rg5: "Farg'ona", rg6: 'Jizzax', rg7: 'Xorazm',
     rg8: 'Namangan', rg9: 'Navoiy', rg10: 'Qashqadaryo', rg11: "Qoraqalpog'iston", rg12: 'Samarqand', rg13: 'Sirdaryo', rg14: 'Surxondaryo',
-    installTitle: "Yer jukeboksini telefoningizga o'rnating",
+    installTitle: "EarthFlow ni telefoningizga o'rnating",
     installText: "Bosh ekranda ilova sifatida ochiladi va internetsiz ham ishlaydi.",
     installBtn: "O'rnatish", installLater: 'Keyinroq', installClose: 'Yopish',
     installIosText: "Pastdagi «Ulashish» tugmasini bosing, so'ng «Bosh ekranga qo'shish» ni tanlang.",
@@ -221,14 +221,14 @@ export const DICT = {
     s3_title: 'Yer javob beradi', s3_text: "Har nota bilan Yer «urib» qo'yadi, harorat oshganda atmosfera ko'kdan qizilga o'tadi.",
     howNote: "Sonifikatsiya ko'zi ojiz foydalanuvchilarga ham ma'lumotni ovoz orqali tushunish imkonini beradi.",
 
-    footerLogo: 'Yer jukeboksi logotipi',
+    footerLogo: 'EarthFlow logotipi',
     footerData: "Ma'lumotlar: NASA GISS (GISTEMP), NOAA GML (Mauna Loa), NOAA sun'iy yo'ldosh altimetriyasi. Altimetriya ma'lumotlarini NOAA Laboratory for Satellite Altimetry taqdim etadi. Tasvirlar: NASA kuzatuvlari («Blue Marble» to'plami).",
     footerNote: 'Bu NASA Space Apps Challenge loyihasi; NASA tomonidan tasdiqlanmagan.',
     toTop: 'Yuqoriga',
   },
 
   en: {
-    brand: 'Earth Jukebox',
+    brand: 'EarthFlow',
     navLabel: 'Sections',
     menuOpen: 'Open menu',
     menuClose: 'Close menu',
@@ -296,7 +296,7 @@ export const DICT = {
     w_clear: 'Clear', w_partly: 'Partly cloudy', w_cloudy: 'Cloudy', w_fog: 'Fog', w_rain: 'Rain', w_snow: 'Snow', w_storm: 'Thunderstorm',
     rg1: 'Tashkent city', rg2: 'Tashkent region', rg3: 'Andijan', rg4: 'Bukhara', rg5: 'Fergana', rg6: 'Jizzakh', rg7: 'Khorezm',
     rg8: 'Namangan', rg9: 'Navoi', rg10: 'Kashkadarya', rg11: 'Karakalpakstan', rg12: 'Samarkand', rg13: 'Syrdarya', rg14: 'Surkhandarya',
-    installTitle: 'Install Earth Jukebox on your phone',
+    installTitle: 'Install EarthFlow on your phone',
     installText: 'It opens from the home screen like an app and works offline too.',
     installBtn: 'Install', installLater: 'Later', installClose: 'Close',
     installIosText: 'Tap the “Share” button below, then choose “Add to Home Screen”.',
@@ -446,14 +446,14 @@ export const DICT = {
     s3_title: 'Earth responds', s3_text: 'With every note Earth pulses, and as temperature rises the atmosphere shifts from blue to red.',
     howNote: 'Sonification also lets blind and low-vision users understand data through sound.',
 
-    footerLogo: 'Earth Jukebox logo',
+    footerLogo: 'EarthFlow logo',
     footerData: 'Data: NASA GISS (GISTEMP), NOAA GML (Mauna Loa), NOAA satellite altimetry. Altimetry data are provided by NOAA Laboratory for Satellite Altimetry. Imagery: NASA observations ("Blue Marble" collection).',
     footerNote: 'This is a NASA Space Apps Challenge project; it is not endorsed by NASA.',
     toTop: 'Back to top',
   },
 
   ru: {
-    brand: 'Джукбокс Земли',
+    brand: 'EarthFlow',
     navLabel: 'Разделы',
     menuOpen: 'Открыть меню',
     menuClose: 'Закрыть меню',
@@ -521,7 +521,7 @@ export const DICT = {
     w_clear: 'Ясно', w_partly: 'Переменная облачность', w_cloudy: 'Облачно', w_fog: 'Туман', w_rain: 'Дождь', w_snow: 'Снег', w_storm: 'Гроза',
     rg1: 'город Ташкент', rg2: 'Ташкентская область', rg3: 'Андижанская область', rg4: 'Бухарская область', rg5: 'Ферганская область', rg6: 'Джизакская область', rg7: 'Хорезмская область',
     rg8: 'Наманганская область', rg9: 'Навоийская область', rg10: 'Кашкадарьинская область', rg11: 'Каракалпакстан', rg12: 'Самаркандская область', rg13: 'Сырдарьинская область', rg14: 'Сурхандарьинская область',
-    installTitle: 'Установите Джукбокс Земли на телефон',
+    installTitle: 'Установите EarthFlow на телефон',
     installText: 'Откроется с главного экрана как приложение и будет работать без интернета.',
     installBtn: 'Установить', installLater: 'Позже', installClose: 'Закрыть',
     installIosText: 'Нажмите кнопку «Поделиться» внизу, затем выберите «На экран “Домой”».',
@@ -671,7 +671,7 @@ export const DICT = {
     s3_title: 'Земля отвечает', s3_text: 'С каждой нотой Земля «пульсирует», а при росте температуры атмосфера меняется с синей на красную.',
     howNote: 'Сонификация помогает слепым и слабовидящим людям понимать данные через звук.',
 
-    footerLogo: 'Логотип Джукбокса Земли',
+    footerLogo: 'Логотип EarthFlow',
     footerData: 'Данные: NASA GISS (GISTEMP), NOAA GML (Мауна-Лоа), спутниковая альтиметрия NOAA. Данные альтиметрии предоставлены NOAA Laboratory for Satellite Altimetry. Снимки: наблюдения NASA (коллекция «Blue Marble»).',
     footerNote: 'Это проект NASA Space Apps Challenge; не одобрен NASA.',
     toTop: 'Наверх',
