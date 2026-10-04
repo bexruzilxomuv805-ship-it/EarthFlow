@@ -82,6 +82,11 @@ export default function Nav() {
       </div>
       {open && (
         <nav id="mobile-menu" className="mobile-menu" aria-label={t('navLabel')}>
+          <div className="menu-lang" role="group" aria-label={t('langLabel')}>
+            {LANGS.map((l) => (
+              <button key={l} className={l === lang ? 'on' : ''} aria-pressed={l === lang} onClick={() => setLang(l)}>{l.toUpperCase()}</button>
+            ))}
+          </div>
           {LINKS.map(({ href, key, Icon }) => (
             <a key={href} href={href} onClick={() => setOpen(false)} className={active === href ? 'active' : ''} aria-current={active === href ? 'true' : undefined}>
               <Icon aria-hidden="true" /> {t(key)}
