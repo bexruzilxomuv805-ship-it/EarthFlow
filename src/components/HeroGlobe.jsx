@@ -7,6 +7,7 @@ import { useNearScreen } from '../hooks/useNearScreen'
 
 // Globusdagi qiziqarli joylar (kenglik, uzunlik). Matnlar i18n da: sp<id>_name / sp<id>_text
 const SPOTS = [
+  { id: 8, lat: 41.3, lon: 69.2 },  // O'zbekiston (Toshkent)
   { id: 1, lat: 80, lon: 10 },    // Arktika
   { id: 2, lat: -4, lon: -62 },   // Amazonka
   { id: 3, lat: 19.5, lon: -155.6 }, // Mauna Loa

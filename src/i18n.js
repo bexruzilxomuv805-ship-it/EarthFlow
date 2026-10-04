@@ -107,6 +107,7 @@ export const DICT = {
     sp5_name: 'Sahara', sp5_text: "Dunyodagi eng katta issiq cho'l. Maydoni taxminan 9 mln km², ya'ni AQSh maydoniga yaqin.",
     sp6_name: 'Antarktida', sp6_text: "Yerdagi muzning taxminan 90% shu yerda. Antarktida muzi to'liq erisa, dunyo okeani taxminan 58 m ko'tarilardi.",
     sp7_name: 'Orol dengizi', sp7_text: "Bir paytlar dunyodagi to'rtinchi yirik ko'l edi. 1960 yillardan beri suvi tortilib, maydoni taxminan 90% ga qisqardi.",
+    sp8_name: "O'zbekiston", sp8_text: "Dunyodagi ikki marta dengizsiz davlatlardan biri. Amudaryo va Sirdaryo Pomir hamda Tyan-Shan qor-muzliklaridan oziqlanadi, ularning qisqarishi mintaqa suv ta'minotiga ta'sir qiladi.",
 
     seaTag: 'DENGIZ SATHI',
     seaTitle: "Dengiz sathi ko'tarilsa nima bo'ladi?",
@@ -309,6 +310,7 @@ export const DICT = {
     sp5_name: 'Sahara', sp5_text: 'The largest hot desert on Earth. Its area is about 9 million km², close to the size of the United States.',
     sp6_name: 'Antarctica', sp6_text: 'About 90% of the world’s ice is here. If Antarctica’s ice melted completely, the global ocean would rise by roughly 58 m.',
     sp7_name: 'Aral Sea', sp7_text: 'Once the fourth largest lake in the world. Since the 1960s its water has been drawn away and its area has shrunk by about 90%.',
+    sp8_name: 'Uzbekistan', sp8_text: 'One of only two doubly landlocked countries in the world. The Amu Darya and Syr Darya rivers are fed by Pamir and Tien Shan snow and glaciers, and their shrinking affects the region’s water supply.',
 
     seaTag: 'SEA LEVEL',
     seaTitle: 'What if the sea level rises?',
@@ -511,6 +513,7 @@ export const DICT = {
     sp5_name: 'Сахара', sp5_text: 'Самая большая жаркая пустыня на Земле. Площадь около 9 млн км², близко к площади США.',
     sp6_name: 'Антарктида', sp6_text: 'Здесь около 90% льда планеты. Если бы лёд Антарктиды растаял полностью, Мировой океан поднялся бы примерно на 58 м.',
     sp7_name: 'Аральское море', sp7_text: 'Когда-то четвёртое по величине озеро мира. С 1960-х годов вода ушла, а площадь сократилась примерно на 90%.',
+    sp8_name: 'Узбекистан', sp8_text: 'Одна из двух стран мира, дважды лишённых выхода к морю. Амударья и Сырдарья питаются снегом и ледниками Памира и Тянь-Шаня, их сокращение влияет на водообеспечение региона.',
 
     seaTag: 'УРОВЕНЬ МОРЯ',
     seaTitle: 'Что будет, если уровень моря поднимется?',
