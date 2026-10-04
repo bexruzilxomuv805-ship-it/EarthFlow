@@ -318,3 +318,25 @@ input[type=range] { width: 100%; accent-color: var(--cyan); }
 .install .icon-btn.close { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; font-size: 15px; }
 @keyframes rise { from { transform: translateY(30px); opacity: 0; } to { transform: none; opacity: 1; } }
 @media (min-width: 640px) { .install { left: auto; right: 20px; max-width: 420px; } }
+
+/* ===== Maxsus kursor (faqat sichqonchali qurilmalarda) ===== */
+html.cursor-on, html.cursor-on * { cursor: none !important; }
+.cursor-ring, .cursor-dot { position: fixed; left: 0; top: 0; z-index: 9999; pointer-events: none; opacity: 0; transition: opacity .2s; will-change: transform; }
+.cursor-ring.show, .cursor-dot.show { opacity: 1; }
+.cursor-ring { width: 0; height: 0; }
+.cr-scale { position: absolute; left: -17px; top: -17px; width: 34px; height: 34px; transition: transform .28s cubic-bezier(.2,.9,.3,1.2); }
+.cr-spin { position: absolute; inset: 0; border-radius: 50%; border: 1.5px solid color-mix(in srgb, var(--cyan) 75%, transparent); background: transparent; transition: background .2s, border-color .2s; animation: cr-orbit 4s linear infinite; }
+.cr-spin::after { content: ''; position: absolute; top: -4px; left: calc(50% - 3.5px); width: 7px; height: 7px; border-radius: 50%; background: var(--amber); box-shadow: 0 0 10px var(--amber); }
+.cursor-ring.is-link .cr-scale { transform: scale(1.6); }
+.cursor-ring.is-link .cr-spin { background: color-mix(in srgb, var(--blue) 18%, transparent); border-color: var(--amber); animation-duration: 2.2s; }
+.cursor-ring.is-drag .cr-scale { transform: scale(1.35); }
+.cursor-ring.is-drag .cr-spin { border-style: dashed; animation-duration: 1.6s; }
+.cursor-ring.is-down .cr-scale { transform: scale(.78); }
+.cursor-dot { width: 0; height: 0; }
+.cursor-dot::before { content: ''; position: absolute; left: -3.5px; top: -3.5px; width: 7px; height: 7px; border-radius: 50%; background: var(--cyan); box-shadow: 0 0 12px var(--cyan); transition: transform .2s, background .2s; }
+.cursor-dot.is-link::before { background: var(--amber); box-shadow: 0 0 12px var(--amber); transform: scale(.6); }
+.cursor-pulse { position: fixed; left: 0; top: 0; z-index: 9998; pointer-events: none; width: 0; height: 0; }
+.cursor-pulse i { position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%; border: 2px solid var(--amber); animation: cr-pulse .65s ease-out forwards; }
+@keyframes cr-orbit { to { transform: rotate(360deg); } }
+@keyframes cr-pulse { from { transform: scale(.3); opacity: .9; } to { transform: scale(2.6); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .cr-spin { animation: none !important; } }

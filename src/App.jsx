@@ -9,6 +9,7 @@ import Facts from './components/Facts'
 import Quiz from './components/Quiz'
 import Weather from './components/Weather'
 import InstallPrompt from './components/InstallPrompt'
+import CustomCursor from './components/CustomCursor'
 import SectionHead from './components/SectionHead'
 import { LuPlay, LuArrowDown, LuArrowUp, LuDatabase, LuMusic, LuGlobe } from 'react-icons/lu'
 import './App.css'
@@ -50,6 +51,7 @@ export default function App() {
 
   return (
     <>
+      <CustomCursor />
       <Nav />
       <InstallPrompt />
 
