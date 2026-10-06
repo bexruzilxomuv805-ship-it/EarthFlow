@@ -10,6 +10,9 @@ import Science from './pages/Science'
 import About from './pages/About'
 import JukeboxPage from './pages/JukeboxPage'
 import Shell from './pages/Shell'
+import PlanetsIndex from './pages/PlanetsIndex'
+import PlanetPage from './pages/PlanetPage'
+import { PLANET_IDS, PLANETS } from './data/planets'
 import Compare from './components/Compare'
 import Numbers from './components/Numbers'
 import Weather from './components/Weather'
@@ -20,7 +23,6 @@ import './App.css'
 import './extra.css'
 
 const SeaLevel = lazy(() => import('./components/SeaLevel'))
-const Planets = lazy(() => import('./components/Planets'))
 const Later = ({ h = 560, children }) => <Suspense fallback={<div className="skel" style={{ minHeight: h }} aria-hidden="true" />}>{children}</Suspense>
 
 const base = import.meta.env.BASE_URL
@@ -32,7 +34,7 @@ const ROUTES = {
   '/dengiz': { title: 'navSea', el: <Shell><Later h={640}><SeaLevel /></Later></Shell> },
   '/ob-havo': { title: 'navWeather', el: <Shell><Weather /></Shell> },
   '/viktorina': { title: 'navQuiz', el: <Shell><Quiz /></Shell> },
-  '/sayyoralar': { title: 'navPlanets', el: <Shell><Later h={700}><Planets /></Later></Shell> },
+  '/sayyoralar': { title: 'navPlanets', el: <PlanetsIndex /> },
   '/qanday-ishlaydi': { title: 'navHow', el: <Shell><How /></Shell> },
   '/science': { title: 'navScience', el: <Science /> },
   '/about': { title: 'navAbout', el: <About /> },
@@ -47,10 +49,11 @@ if (window.location.pathname === '/') {
 }
 
 export default function App() {
-  const { t } = usePrefs()
+  const { t, lang } = usePrefs()
   const { path, hash } = useLocation()
   const [searchOpen, setSearchOpen] = useState(false)
-  const route = ROUTES[path]
+  const planetId = path.startsWith('/sayyoralar/') ? path.slice('/sayyoralar/'.length) : null
+  const route = planetId && PLANET_IDS.includes(planetId) ? { title: 'navPlanets', el: <PlanetPage key={planetId} id={planetId} /> } : ROUTES[path]
 
   // Ctrl+K yoki "/" qidiruvni ochadi
   useEffect(() => {
@@ -76,8 +79,8 @@ export default function App() {
   }, [path, hash])
 
   useEffect(() => {
-    document.title = route ? `${t(route.title)} · EarthFlow` : 'EarthFlow'
-  }, [route, t])
+    document.title = route ? `${planetId && PLANETS[planetId] ? PLANETS[planetId].name[lang] : t(route.title)} · EarthFlow` : 'EarthFlow'
+  }, [route, t, planetId, lang])
 
   return (
     <>

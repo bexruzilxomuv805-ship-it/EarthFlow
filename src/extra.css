@@ -146,3 +146,41 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.12); }
 .holo-hint { text-align: center; margin: 12px 0 0; }
 @media (max-width: 700px) { .holo-stage { aspect-ratio: 1 / 1; } }
 .page-body { padding-top: 8px; padding-bottom: 64px; min-height: 60vh; }
+
+/* ===== Sayyora sahifalari ===== */
+.back { display: inline-flex; align-items: center; gap: 6px; margin-bottom: 12px; text-decoration: none; }
+.pm-stage { position: relative; aspect-ratio: 16 / 9; max-height: 620px; width: 100%; margin-top: 8px; overflow: hidden; background: radial-gradient(ellipse at 50% 50%, rgba(47,123,229,.14), transparent 62%), rgba(2,6,20,.85); }
+.pm-stage canvas { position: absolute; inset: 0; cursor: grab; }
+.pm-hint { text-align: center; margin: 10px 0 0; }
+@media (max-width: 700px) { .pm-stage { aspect-ratio: 1 / 1; } }
+.pl-stats { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin: 16px 0 0; }
+.pl-stat:hover { transform: none; }
+.pl-stat dt { margin: 0 0 4px; }
+.pl-stat dd { margin: 0; font-size: 20px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.pl-text h2, .section > h2 { margin-bottom: 4px; }
+.pl-para { margin-top: 14px; }
+.pl-para:hover { transform: none; }
+.pl-para h3 { font-size: 18px; color: var(--cyan); margin-bottom: 6px; }
+.pl-para p { font-size: 17px; line-height: 1.65; }
+.pl-facts { list-style: none; padding: 0; margin: 16px 0 12px; display: grid; gap: 10px; }
+.pl-facts li { padding: 14px 18px; font-weight: 600; border-left: 4px solid var(--amber); }
+.pl-facts li:hover { transform: none; }
+.pl-nav { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; margin-top: 40px; }
+.pg-grid { grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-top: 8px; }
+.pg-item[hidden] { display: none; }
+.pg-item img { aspect-ratio: 4 / 3; }
+.pg-empty { position: relative; display: grid; place-items: center; gap: 8px; padding: 60px 20px; text-align: center; margin-top: 8px; color: var(--muted); overflow: hidden; }
+.pg-empty > svg { font-size: 28px; color: var(--cyan); }
+.pg-empty p { margin: 0; }
+.pg-orb { width: 120px; height: 120px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--c) 50%, white), var(--c) 55%, color-mix(in srgb, var(--c) 35%, black)); box-shadow: 0 0 60px color-mix(in srgb, var(--c) 45%, transparent); opacity: .85; }
+.pli-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); }
+.pli-card { position: relative; display: flex; flex-direction: column; gap: 8px; min-height: 300px; padding-top: 18px; }
+.pli-num { position: absolute; top: 14px; right: 16px; font-variant-numeric: tabular-nums; }
+.pli-orb { position: relative; align-self: flex-start; margin: 6px 0 10px; border-radius: 50%; background: radial-gradient(circle at 32% 28%, color-mix(in srgb, var(--c) 50%, white), var(--c) 55%, color-mix(in srgb, var(--c) 35%, black)); box-shadow: 0 0 36px color-mix(in srgb, var(--c) 40%, transparent); }
+.pli-orb.ring::after { content: ''; position: absolute; left: -38%; right: -38%; top: 38%; bottom: 38%; border-radius: 50%; border: 3px solid color-mix(in srgb, var(--c) 80%, white); transform: rotate(-18deg); opacity: .8; }
+.pli-card h3 { margin: 0; font-size: 22px; }
+.pli-card p { font-size: 14px; }
+.pli-go { margin-top: auto; color: var(--cyan); font-weight: 700; }
+.pli-card:hover { border-color: var(--c); }
+.holo-label { background: rgba(6,10,28,.7); color: #e8f6ff; border: 1px solid rgba(90,209,255,.5); border-radius: 999px; padding: 2px 9px; font: 700 11px var(--font); white-space: nowrap; cursor: pointer; letter-spacing: .02em; }
+.holo-label:hover { background: var(--blue); border-color: #fff; }

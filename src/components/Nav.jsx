@@ -26,7 +26,7 @@ const MAIN = ['/jukebox', '/taqqoslash', '/dengiz', '/ob-havo', '/viktorina'] //
 // Bosh sahifada belgi (#id), boshqa sahifada "/#id"; sahifa havolalari alohida
 function Item({ item, path, active, onClick, t }) {
   const { href, page, key, Icon } = item
-  const isActive = page ? path === page : active === href
+  const isActive = page ? (path === page || (page === '/sayyoralar' && path.startsWith('/sayyoralar/'))) : active === href
   const props = { className: isActive ? 'active' : '', 'aria-current': isActive ? (page ? 'page' : 'true') : undefined, onClick }
   const body = <><Icon aria-hidden="true" /> {t(key)}</>
   if (page) return <Link to={page} {...props}>{body}</Link>
@@ -83,7 +83,7 @@ export default function Nav({ path = '/', onSearch }) {
 
   const main = LINKS.filter((l) => MAIN.includes(l.page))
   const rest = LINKS.filter((l) => !MAIN.includes(l.page))
-  const moreActive = rest.some((l) => (l.page ? path === l.page : active === l.href))
+  const moreActive = rest.some((l) => (l.page ? (path === l.page || (l.page === '/sayyoralar' && path.startsWith('/sayyoralar/'))) : active === l.href))
 
   return (
     <header className="nav">

@@ -6,6 +6,7 @@
     { "source": "/ob-havo", "destination": "/index.html" },
     { "source": "/viktorina", "destination": "/index.html" },
     { "source": "/sayyoralar", "destination": "/index.html" },
+    { "source": "/sayyoralar/:id", "destination": "/index.html" },
     { "source": "/qanday-ishlaydi", "destination": "/index.html" },
     { "source": "/science", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" }

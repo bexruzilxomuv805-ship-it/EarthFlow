@@ -1,8 +1,10 @@
 import { Suspense, useMemo, useRef, useState } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
-import { Line, OrbitControls, useTexture } from '@react-three/drei'
+import { Html, Line, OrbitControls, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
 import { usePrefs } from '../prefs'
+import { go } from '../router'
+import { PLANETS as PLANET_DATA } from '../data/planets'
 import SectionHead from './SectionHead'
 import ErrorBoundary from './ErrorBoundary'
 import FrameKick from './FrameKick'
@@ -194,17 +196,19 @@ function Magnetic({ map }) {
 }
 
 // 3) Quyosh tizimi: sakkizta sayyora (orbita davrlari kunlarda; masofa va tezlik ko'rsatish uchun siqilgan)
-const PLANETS = [
-  { name: 'Merkuriy', r: 0.6, days: 88, size: 0.045, color: '#b9b3ac' },
-  { name: 'Venera', r: 0.85, days: 225, size: 0.08, color: '#e9b95a' },
-  { name: 'Yer', r: 1.1, days: 365.25, size: 0.085, color: '#4aa3ff' },
-  { name: 'Mars', r: 1.35, days: 687, size: 0.06, color: '#e0603a' },
-  { name: 'Yupiter', r: 1.75, days: 4333, size: 0.2, color: '#d9a066' },
-  { name: 'Saturn', r: 2.1, days: 10759, size: 0.165, color: '#e6cf8f', ring: true },
-  { name: 'Uran', r: 2.4, days: 30687, size: 0.12, color: '#8fe0e6' },
-  { name: 'Neptun', r: 2.7, days: 60190, size: 0.115, color: '#4a6fe0' },
+const ORBITS = [
+  { id: 'mercury', r: 0.6, days: 88, size: 0.045 },
+  { id: 'venus', r: 0.85, days: 225, size: 0.08 },
+  { id: 'earth', r: 1.1, days: 365.25, size: 0.085 },
+  { id: 'mars', r: 1.35, days: 687, size: 0.06 },
+  { id: 'jupiter', r: 1.75, days: 4333, size: 0.2 },
+  { id: 'saturn', r: 2.1, days: 10756, size: 0.165, ring: true },
+  { id: 'uranus', r: 2.4, days: 30687, size: 0.12 },
+  { id: 'neptune', r: 2.7, days: 60190, size: 0.115 },
 ]
 function SolarSystem() {
+  const { lang } = usePrefs()
+  const open = (id) => go(`/sayyoralar/${id}`)
   return (
     <group rotation={[0.55, 0, 0.1]} scale={0.85}>
       <mesh>
@@ -215,24 +219,34 @@ function SolarSystem() {
         <sphereGeometry args={[0.38, 32, 32]} />
         <meshBasicMaterial color="#ff9d2e" transparent opacity={0.2} blending={ADD} depthWrite={false} />
       </mesh>
-      {PLANETS.map((p, i) => (
-        <Orbit key={p.name} radius={p.r} speed={0.5 * (365.25 / p.days) ** 0.55} phase={i * 1.7}>
-          <mesh>
-            <sphereGeometry args={[p.size, 24, 24]} />
-            <meshBasicMaterial color={p.color} />
-          </mesh>
-          <mesh>
-            <sphereGeometry args={[p.size * 1.7, 24, 24]} />
-            <meshBasicMaterial color={p.color} transparent opacity={0.16} blending={ADD} depthWrite={false} />
-          </mesh>
-          {p.ring && (
-            <mesh rotation={[Math.PI / 2.2, 0, 0.3]}>
-              <ringGeometry args={[p.size * 1.35, p.size * 2.1, 64]} />
-              <meshBasicMaterial color={p.color} transparent opacity={0.55} side={THREE.DoubleSide} blending={ADD} depthWrite={false} />
+      {ORBITS.map((p, i) => {
+        const color = PLANET_DATA[p.id].color
+        return (
+          <Orbit key={p.id} radius={p.r} speed={0.5 * (365.25 / p.days) ** 0.55} phase={i * 1.7}>
+            <mesh onClick={() => open(p.id)} onPointerOver={() => { document.body.style.cursor = 'pointer' }} onPointerOut={() => { document.body.style.cursor = '' }}>
+              <sphereGeometry args={[p.size * 1.6, 16, 16]} />
+              <meshBasicMaterial transparent opacity={0} depthWrite={false} />
             </mesh>
-          )}
-        </Orbit>
-      ))}
+            <mesh>
+              <sphereGeometry args={[p.size, 24, 24]} />
+              <meshBasicMaterial color={color} />
+            </mesh>
+            <mesh>
+              <sphereGeometry args={[p.size * 1.7, 24, 24]} />
+              <meshBasicMaterial color={color} transparent opacity={0.16} blending={ADD} depthWrite={false} />
+            </mesh>
+            {p.ring && (
+              <mesh rotation={[Math.PI / 2.2, 0, 0.3]}>
+                <ringGeometry args={[p.size * 1.35, p.size * 2.1, 64]} />
+                <meshBasicMaterial color={color} transparent opacity={0.55} side={THREE.DoubleSide} blending={ADD} depthWrite={false} />
+              </mesh>
+            )}
+            <Html position={[0, p.size * 2.2 + 0.08, 0]} center zIndexRange={[5, 0]}>
+              <button type="button" className="holo-label" onClick={() => open(p.id)}>{PLANET_DATA[p.id].name[lang]}</button>
+            </Html>
+          </Orbit>
+        )
+      })}
     </group>
   )
 }
@@ -303,7 +317,7 @@ export default function Hologram() {
         )}
       </div>
       <p className="muted holo-cap" aria-live="polite">{caption}</p>
-      <p className="muted small holo-hint">{t('holoHint')} {t('holoScale')}</p>
+      <p className="muted small holo-hint">{t('holoHint')} {t('holoScale')} {(mode === 'all' || mode === 'solar') && t('holoClick')}</p>
     </section>
   )
 }

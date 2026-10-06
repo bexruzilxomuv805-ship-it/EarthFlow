@@ -3,6 +3,7 @@ import { LuSearch, LuX } from 'react-icons/lu'
 import { DATASETS } from '../data/datasets'
 import { usePrefs } from '../prefs'
 import { go } from '../router'
+import { PLANETS, PLANET_IDS } from '../data/planets'
 
 const SECTIONS = [
   ['/jukebox', 'navJukebox'], ['/taqqoslash', 'navCompare'], ['/dengiz', 'navSea'], ['/ob-havo', 'navWeather'], ['/viktorina', 'navQuiz'],
@@ -20,7 +21,7 @@ export function SearchButton({ onOpen }) {
 }
 
 export default function Search({ open, onClose }) {
-  const { t } = usePrefs()
+  const { t, lang } = usePrefs()
   const [q, setQ] = useState('')
   const [sel, setSel] = useState(0)
   const input = useRef(null)
@@ -28,11 +29,12 @@ export default function Search({ open, onClose }) {
   const items = useMemo(() => {
     const list = []
     for (const [href, key] of SECTIONS) list.push({ group: 'searchSections', label: t(key), hint: '', to: href })
+    for (const id of PLANET_IDS) list.push({ group: 'searchPlanets', label: PLANETS[id].name[lang], hint: PLANETS[id].tag[lang], to: `/sayyoralar/${id}` })
     for (const ds of DATASETS) list.push({ group: 'searchData', label: t(`ds_${ds.id}_label`), hint: t(`ds_${ds.id}_desc`), to: '/jukebox' })
     for (let i = 1; i <= 6; i++) list.push({ group: 'searchFacts', label: `${t(`f${i}_v`)} ${t(`f${i}_u`)}`, hint: t(`f${i}_t`), to: '/#faktlar' })
     for (let i = 1; i <= 8; i++) list.push({ group: 'searchPlaces', label: t(`sp${i}_name`), hint: t(`sp${i}_text`), to: '/#hero' })
     return list
-  }, [t])
+  }, [t, lang])
 
   const shown = useMemo(() => {
     const s = q.trim().toLowerCase()
