@@ -193,33 +193,44 @@ function Magnetic({ map }) {
   )
 }
 
-// 3) Quyosh tizimi: Venera, Yer, Mars (yil uzunliklari nisbatida)
+// 3) Quyosh tizimi: sakkizta sayyora (orbita davrlari kunlarda; masofa va tezlik ko'rsatish uchun siqilgan)
 const PLANETS = [
-  { r: 0.95, days: 225, size: 0.09, color: '#e9b95a' },
-  { r: 1.4, days: 365.25, size: 0.1, color: '#4aa3ff' },
-  { r: 1.9, days: 687, size: 0.075, color: '#e0603a' },
+  { name: 'Merkuriy', r: 0.6, days: 88, size: 0.045, color: '#b9b3ac' },
+  { name: 'Venera', r: 0.85, days: 225, size: 0.08, color: '#e9b95a' },
+  { name: 'Yer', r: 1.1, days: 365.25, size: 0.085, color: '#4aa3ff' },
+  { name: 'Mars', r: 1.35, days: 687, size: 0.06, color: '#e0603a' },
+  { name: 'Yupiter', r: 1.75, days: 4333, size: 0.2, color: '#d9a066' },
+  { name: 'Saturn', r: 2.1, days: 10759, size: 0.165, color: '#e6cf8f', ring: true },
+  { name: 'Uran', r: 2.4, days: 30687, size: 0.12, color: '#8fe0e6' },
+  { name: 'Neptun', r: 2.7, days: 60190, size: 0.115, color: '#4a6fe0' },
 ]
 function SolarSystem() {
   return (
-    <group rotation={[0.55, 0, 0.1]}>
+    <group rotation={[0.55, 0, 0.1]} scale={0.85}>
       <mesh>
-        <sphereGeometry args={[0.3, 32, 32]} />
+        <sphereGeometry args={[0.24, 32, 32]} />
         <meshBasicMaterial color="#ffb454" />
       </mesh>
       <mesh>
-        <sphereGeometry args={[0.46, 32, 32]} />
+        <sphereGeometry args={[0.38, 32, 32]} />
         <meshBasicMaterial color="#ff9d2e" transparent opacity={0.2} blending={ADD} depthWrite={false} />
       </mesh>
       {PLANETS.map((p, i) => (
-        <Orbit key={p.days} radius={p.r} speed={(0.5 * 365.25) / p.days} phase={i * 2.1}>
+        <Orbit key={p.name} radius={p.r} speed={0.5 * (365.25 / p.days) ** 0.55} phase={i * 1.7}>
           <mesh>
             <sphereGeometry args={[p.size, 24, 24]} />
             <meshBasicMaterial color={p.color} />
           </mesh>
           <mesh>
-            <sphereGeometry args={[p.size * 1.8, 24, 24]} />
-            <meshBasicMaterial color={p.color} transparent opacity={0.18} blending={ADD} depthWrite={false} />
+            <sphereGeometry args={[p.size * 1.7, 24, 24]} />
+            <meshBasicMaterial color={p.color} transparent opacity={0.16} blending={ADD} depthWrite={false} />
           </mesh>
+          {p.ring && (
+            <mesh rotation={[Math.PI / 2.2, 0, 0.3]}>
+              <ringGeometry args={[p.size * 1.35, p.size * 2.1, 64]} />
+              <meshBasicMaterial color={p.color} transparent opacity={0.55} side={THREE.DoubleSide} blending={ADD} depthWrite={false} />
+            </mesh>
+          )}
         </Orbit>
       ))}
     </group>
