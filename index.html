@@ -97,20 +97,21 @@
         var lang = 'uz';
         try { var l = localStorage.getItem('lang'); if (l === 'en' || l === 'ru') lang = l; } catch (e) {}
         document.getElementById('boot-sub').textContent = T[lang];
-        document.documentElement.className += ' booting';
+        document.documentElement.classList.add('booting');
         var bar = document.getElementById('boot-bar'), pct = document.getElementById('boot-pct');
         var start = Date.now(), p = 0, loaded = document.readyState === 'complete', mounted = false, finished = false;
         window.addEventListener('load', function () { loaded = true; });
         window.__bootMounted = function () { mounted = true; };
         function finish() {
           if (finished) return; finished = true;
-          boot.className += ' done';
-          document.documentElement.className = document.documentElement.className.replace(' booting', '');
+          boot.classList.add('done');
+          document.documentElement.classList.remove('booting');
           try { sessionStorage.setItem('booted', '1'); } catch (e) {}
           setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 800);
         }
+        var timer = setInterval(tick, 40);
         function tick() {
-          if (finished) return;
+          if (finished) { clearInterval(timer); return; }
           var el = Date.now() - start;
           var ready = loaded && mounted;
           var target = ready ? 100 : Math.min(90, 6 + el / 55);
@@ -118,10 +119,8 @@
           if (ready && p > 99.4) p = 100;
           bar.style.width = p.toFixed(1) + '%';
           pct.textContent = Math.round(p) + '%';
-          if ((p >= 100 && el > 1600) || el > 9000) { finish(); return; }
-          requestAnimationFrame(tick);
+          if ((p >= 100 && el > 1600) || el > 9000) { clearInterval(timer); finish(); }
         }
-        requestAnimationFrame(tick);
       })();
     </script>
     <div id="root"></div>

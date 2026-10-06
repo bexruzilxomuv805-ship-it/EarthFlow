@@ -24,4 +24,4 @@ createRoot(document.getElementById('root')).render(
 )
 
 // Yuklash ekrani: ilova chizilgach yopiladi
-requestAnimationFrame(() => window.__bootMounted?.())
+setTimeout(() => window.__bootMounted?.(), 0)
