@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LuScale, LuFlaskConical, LuInfo, LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX } from 'react-icons/lu'
+import { LuScale, LuFlaskConical, LuInfo, LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX, LuChevronDown } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
 import { Link } from '../router'
 import { SearchButton } from './Search'
@@ -21,7 +21,7 @@ const LINKS = [
   { page: '/science', key: 'navScience', Icon: LuFlaskConical },
   { page: '/about', key: 'navAbout', Icon: LuInfo },
 ]
-const SPLIT = 6
+const MAIN = ['#jukebox', '#taqqos', '#dengiz', '#obhavo', '#viktorina'] // sarlavhada ko'rinadiganlar, qolgani "Yana" ro'yxatida
 
 // Bosh sahifada belgi (#id), boshqa sahifada "/#id"; sahifa havolalari alohida
 function Item({ item, path, active, onClick, t }) {
@@ -37,6 +37,7 @@ export default function Nav({ path = '/', onSearch }) {
   const { t, lang, setLang, theme, toggleTheme } = usePrefs()
   const [active, setActive] = useState('')
   const [open, setOpen] = useState(false)
+  const [more, setMore] = useState(false)
   const themeLabel = theme === 'dark' ? t('themeToLight') : t('themeToDark')
 
   // Hozir qaysi bo'limda ekanimizni ajratib ko'rsatish (scrollspy)
@@ -44,7 +45,7 @@ export default function Nav({ path = '/', onSearch }) {
     let raf = 0
     const update = () => {
       raf = 0
-      const line = window.innerWidth <= 1360 ? 90 : 150
+      const line = window.innerWidth <= 1100 ? 90 : 80
       let cur = ''
       for (const { href } of LINKS) {
         if (!href) continue
@@ -70,16 +71,36 @@ export default function Nav({ path = '/', onSearch }) {
     return () => { window.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown) }
   }, [open])
 
+  // "Yana" ro'yxati: Esc yoki tashqariga bosish yopadi
+  useEffect(() => {
+    if (!more) return
+    const onKey = (e) => { if (e.key === 'Escape') setMore(false) }
+    const onDown = (e) => { if (!e.target.closest?.('.nav-more')) setMore(false) }
+    window.addEventListener('keydown', onKey)
+    document.addEventListener('pointerdown', onDown)
+    return () => { window.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown) }
+  }, [more])
+
+  const main = LINKS.filter((l) => MAIN.includes(l.href))
+  const rest = LINKS.filter((l) => !MAIN.includes(l.href))
+  const moreActive = rest.some((l) => (l.page ? path === l.page : active === l.href))
+
   return (
     <header className="nav">
       <div className="nav-bar">
         <Link className="brand" to="/" onClick={() => { if (path === '/') window.scrollTo({ top: 0, behavior: 'smooth' }) }}><img className="logo" src={`${base}logo.png`} alt="" width="40" height="40" /> <span>{t('brand')}</span></Link>
         <nav className="nav-links" aria-label={t('navLabel')}>
-          {[LINKS.slice(0, SPLIT), LINKS.slice(SPLIT)].map((row, i) => (
-            <div className="nav-row" key={i}>
-              {row.map((item) => <Item key={item.href || item.page} item={item} path={path} active={active} t={t} />)}
-            </div>
-          ))}
+          {main.map((item) => <Item key={item.href} item={item} path={path} active={active} t={t} />)}
+          <div className="nav-more">
+            <button type="button" className={`more-btn ${moreActive ? 'active' : ''}`} aria-haspopup="true" aria-expanded={more} onClick={() => setMore((m) => !m)}>
+              {t('navMore')} <LuChevronDown aria-hidden="true" />
+            </button>
+            {more && (
+              <div className="more-panel">
+                {rest.map((item) => <Item key={item.href || item.page} item={item} path={path} active={active} t={t} onClick={() => setMore(false)} />)}
+              </div>
+            )}
+          </div>
         </nav>
         <div className="nav-tools">
           <div className="lang" role="group" aria-label={t('langLabel')}>

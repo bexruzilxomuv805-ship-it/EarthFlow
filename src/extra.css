@@ -87,7 +87,7 @@ h1, .h1 { font-size: clamp(36px, 6vw, 68px); letter-spacing: -.03em; font-weight
 /* ===== Menyu: 13 ta havola sig'ishi uchun burger 1360px gacha ===== */
 .nav-links { font-size: 14px; }
 .nav-row { gap: 6px 16px; }
-@media (max-width: 1360px) {
+@media (max-width: 1100px) {
   .nav-bar { display: flex; justify-content: space-between; gap: 12px; padding-top: 10px; padding-bottom: 10px; }
   .nav-links { display: none; }
   .nav-tools { margin-left: auto; }
@@ -122,3 +122,20 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.12); }
 /* ===== Nusxalash maydoni ===== */
 .copybox { display: flex; flex-direction: column; gap: 6px; width: 100%; flex-basis: 100%; }
 .copybox input { width: 100%; background: var(--panel-2); color: var(--text); border: 1px solid var(--cyan); border-radius: 12px; padding: 10px 12px; font: 600 14px var(--font); }
+
+/* ===== Sarlavha: bitta qator, ortiqcha havolalar "Yana" ro'yxatida ===== */
+.nav-links { flex-direction: row; align-items: center; gap: 4px 20px; justify-self: center; }
+.nav-links > a, .more-btn { position: relative; display: inline-flex; align-items: center; gap: 7px; padding: 8px 4px; white-space: nowrap; background: none; border: 0; color: inherit; font: inherit; cursor: pointer; transition: color .15s; }
+.more-btn svg { font-size: 1.1em; transition: transform .2s; }
+.more-btn[aria-expanded='true'] svg { transform: rotate(180deg); }
+.more-btn:hover, .more-btn[aria-expanded='true'] { color: var(--text); }
+.more-btn.active { color: var(--text); font-weight: 700; }
+.nav-more { position: relative; }
+.more-panel { position: absolute; top: calc(100% + 10px); right: 0; z-index: 30; display: grid; grid-template-columns: 1fr 1fr; gap: 2px 8px; width: max-content; max-width: 90vw; padding: 8px; background: var(--menu-bg); border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 18px 40px rgba(0,0,0,.4); backdrop-filter: blur(18px); animation: drop .15s ease-out; }
+.more-panel a { display: flex; align-items: center; gap: 10px; padding: 10px 14px; border-radius: 12px; color: var(--muted); font-size: 15px; white-space: nowrap; }
+.more-panel a svg { flex: none; font-size: 1.2em; }
+.more-panel a:hover { background: var(--panel-2); color: var(--text); }
+.more-panel a.active { background: var(--chip); color: var(--text); font-weight: 700; }
+.more-panel a.active svg { color: var(--cyan); }
+.nav-links a::after { display: none; }
+.nav-links > a::after { display: block; }

@@ -1,7 +1,7 @@
 // Yangi bo'limlar matnlari (kirish sahnasi, raqamlar, taqqoslash, manbalar, sahifalar, qidiruv). i18n.js ga qo'shiladi.
 export const EXTRA = {
   uz: {
-    navCompare: 'Taqqoslash', navScience: 'Ilm va manbalar', navAbout: 'Loyiha haqida', navNumbers: 'Raqamlar',
+    navMore: 'Yana', navCompare: 'Taqqoslash', navScience: 'Ilm va manbalar', navAbout: 'Loyiha haqida', navNumbers: 'Raqamlar',
     searchBtn: 'Qidiruv', searchPh: "Bo'lim, ma'lumot yoki fakt qidiring…", searchEmpty: 'Hech narsa topilmadi', searchHint: 'Ctrl+K · Esc yopadi',
     searchSections: "Bo'limlar", searchFacts: 'Faktlar', searchPlaces: 'Globusdagi joylar', searchData: "Ma'lumotlar", searchClose: 'Qidiruvni yopish',
 
@@ -63,7 +63,7 @@ export const EXTRA = {
   },
 
   en: {
-    navCompare: 'Compare', navScience: 'Science & sources', navAbout: 'About', navNumbers: 'Numbers',
+    navMore: 'More', navCompare: 'Compare', navScience: 'Science & sources', navAbout: 'About', navNumbers: 'Numbers',
     searchBtn: 'Search', searchPh: 'Search sections, data or facts…', searchEmpty: 'Nothing found', searchHint: 'Ctrl+K · Esc closes',
     searchSections: 'Sections', searchFacts: 'Facts', searchPlaces: 'Places on the globe', searchData: 'Data', searchClose: 'Close search',
 
@@ -125,7 +125,7 @@ export const EXTRA = {
   },
 
   ru: {
-    navCompare: 'Сравнение', navScience: 'Наука и источники', navAbout: 'О проекте', navNumbers: 'Цифры',
+    navMore: 'Ещё', navCompare: 'Сравнение', navScience: 'Наука и источники', navAbout: 'О проекте', navNumbers: 'Цифры',
     searchBtn: 'Поиск', searchPh: 'Ищите раздел, данные или факт…', searchEmpty: 'Ничего не найдено', searchHint: 'Ctrl+K · Esc закрывает',
     searchSections: 'Разделы', searchFacts: 'Факты', searchPlaces: 'Места на глобусе', searchData: 'Данные', searchClose: 'Закрыть поиск',
 
