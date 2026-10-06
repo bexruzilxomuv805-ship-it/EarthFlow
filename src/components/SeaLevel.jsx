@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import sealevel from '../data/sealevel.json'
 import { usePrefs } from '../prefs'
 import SectionHead from './SectionHead'
+import FrameKick from './FrameKick'
 import ErrorBoundary from './ErrorBoundary'
 import { useNearScreen } from '../hooks/useNearScreen'
 
@@ -81,6 +82,7 @@ export default function SeaLevel() {
           {near && (
             <ErrorBoundary fallback={null}>
               <Canvas camera={{ position: [0, 0, 3.1], fov: 38 }} dpr={[1, 1.75]} gl={{ antialias: true, alpha: true }} frameloop={visible ? 'always' : 'demand'}>
+<FrameKick active={visible} />
                 <Suspense fallback={null}>
                   <Globe meters={m} />
                 </Suspense>

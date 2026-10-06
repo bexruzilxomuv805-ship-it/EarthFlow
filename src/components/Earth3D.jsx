@@ -1,4 +1,5 @@
 import { Suspense, useEffect, useMemo, useRef } from 'react'
+import FrameKick from './FrameKick'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { OrbitControls, Stars, useTexture } from '@react-three/drei'
 import * as THREE from 'three'
@@ -194,6 +195,7 @@ function Spot({ spot, active, onSpot }) {
 export default function Earth3D({ heat = 0, pulse = 0, playing = false, live = false, spots, focusId = null, onSpot, active = true }) {
   return (
     <Canvas camera={{ position: [0, 0, 3.5], fov: 40 }} dpr={[1, 1.5]} gl={{ antialias: true, alpha: true }} frameloop={active ? 'always' : 'demand'}>
+<FrameKick active={active} />
       <Stars radius={90} depth={40} count={3500} factor={4} saturation={0} fade speed={0.4} />
       <Suspense fallback={null}>
         <Earth heat={heat} pulse={pulse} playing={playing} live={live} spots={spots} focusId={focusId} onSpot={onSpot} />

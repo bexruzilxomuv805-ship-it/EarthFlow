@@ -5,6 +5,7 @@ import * as THREE from 'three'
 import { LuExpand, LuShrink } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
 import SectionHead from './SectionHead'
+import FrameKick from './FrameKick'
 import ErrorBoundary from './ErrorBoundary'
 import { useNearScreen } from '../hooks/useNearScreen'
 
@@ -129,6 +130,7 @@ export default function EarthLayers() {
           {near && (
             <ErrorBoundary fallback={<p className="muted int-fail">{t('intFail')}</p>}>
               <Canvas camera={{ position: [3.3 * Math.sin(CAM_AZIMUTH), 1.1, 3.3 * Math.cos(CAM_AZIMUTH)], fov: 38 }} dpr={[1, 1.75]} gl={{ antialias: true, alpha: true }} frameloop={visible ? 'always' : 'demand'}>
+<FrameKick active={visible} />
                 <Suspense fallback={null}>
                   <Scene exploded={exploded} selected={selected} hovered={hovered} onHover={setHovered} onSelect={setSelected} names={names} />
                 </Suspense>

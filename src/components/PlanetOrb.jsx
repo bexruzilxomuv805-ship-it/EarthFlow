@@ -1,4 +1,5 @@
 import { Suspense, useMemo, useRef } from 'react'
+import FrameKick from './FrameKick'
 import { Canvas, useFrame } from '@react-three/fiber'
 import { useTexture } from '@react-three/drei'
 import * as THREE from 'three'
@@ -117,6 +118,7 @@ export default function PlanetOrb({ kind, scale = 1, active = true }) {
   const venusUniforms = useMemo(() => ({ uTime: { value: 0 } }), [])
   return (
     <Canvas camera={{ position: [0, 0, 3], fov: 30 }} dpr={[1, 1.75]} gl={{ antialias: true, alpha: true }} frameloop={active ? 'always' : 'demand'}>
+<FrameKick active={active} />
       <ambientLight intensity={0.35} />
       <directionalLight position={[-2.2, 1.4, 3]} intensity={2.6} />
       <Suspense fallback={null}>
