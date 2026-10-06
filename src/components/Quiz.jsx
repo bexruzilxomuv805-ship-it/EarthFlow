@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { LuCircleCheck, LuCircleX, LuRefreshCw, LuShare2, LuCheck, LuTrophy } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
+import CopyBox from './CopyBox'
 import SectionHead from './SectionHead'
 
 // To'g'ri javob: har bir savolning q<n>_o<k> variantlaridan k (1 dan boshlab)
@@ -24,6 +25,7 @@ export default function Quiz() {
   const { t } = usePrefs()
   const [orders, setOrders] = useState(shuffled)
   const [i, setI] = useState(0)
+  const [manual, setManual] = useState('')
   const [picked, setPicked] = useState(null) // tanlangan variant raqami (1..4)
   const [score, setScore] = useState(0)
   const [done, setDone] = useState(false)
@@ -56,7 +58,7 @@ export default function Quiz() {
     if (navigator.share) {
       try { await navigator.share({ title: t('brand'), text, url }); return } catch (e) { if (e?.name === 'AbortError') return }
     }
-    try { await navigator.clipboard.writeText(`${text} ${url}`) } catch { window.prompt(t('quizShare'), `${text} ${url}`); return }
+    try { await navigator.clipboard.writeText(`${text} ${url}`) } catch { setManual(`${text} ${url}`); return }
     setCopied(true)
     clearTimeout(timer.current)
     timer.current = setTimeout(() => setCopied(false), 2200)
@@ -109,6 +111,7 @@ export default function Quiz() {
               <button className="btn" onClick={restart}><LuRefreshCw aria-hidden="true" /> {t('quizRestart')}</button>
               <button className="btn ghost" onClick={share}>{copied ? <LuCheck aria-hidden="true" /> : <LuShare2 aria-hidden="true" />} {copied ? t('quizCopied') : t('quizShare')}</button>
             </div>
+            {manual && <CopyBox text={manual} onClose={() => setManual('')} />}
           </div>
         )}
       </div>

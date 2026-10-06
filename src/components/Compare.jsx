@@ -3,6 +3,7 @@ import { LuArrowLeftRight } from 'react-icons/lu'
 import { DATASETS } from '../data/datasets'
 import { usePrefs } from '../prefs'
 import SectionHead from './SectionHead'
+import Select from './Select'
 
 const fmt = (v, d, signed) => `${signed && v > 0 ? '+' : ''}${v.toFixed(d)}`
 const range = (ds) => { const a = ds.json.data; return [a[0].year, a[a.length - 1].year] }
@@ -25,11 +26,10 @@ function Side({ n, side, onChange }) {
   return (
     <div className="card cmp-side">
       <span className="pixel tag">{t('cmpSide', { n })}</span>
-      <label className="cmp-field" htmlFor={idA}><span className="muted small">{t('cmpDataset')}</span>
-        <select id={idA} value={side.ds} onChange={(e) => onChange({ ds: e.target.value, year: side.year })}>
-          {DATASETS.map((d) => <option key={d.id} value={d.id}>{t(`ds_${d.id}_label`)}</option>)}
-        </select>
-      </label>
+      <div className="cmp-field"><span className="muted small">{t('cmpDataset')}</span>
+        <Select id={idA} label={t('cmpDataset')} value={side.ds} options={DATASETS.map((d) => ({ value: d.id, label: t(`ds_${d.id}_label`) }))}
+          onChange={(v) => onChange({ ds: v, year: side.year })} />
+      </div>
       <label className="cmp-field" htmlFor={idY}><span className="muted small">{t('cmpYear')}: <strong>{cur.year}</strong></span>
         <input id={idY} type="range" min={y0} max={y1} value={year} onChange={(e) => onChange({ ds: side.ds, year: Number(e.target.value) })} />
       </label>

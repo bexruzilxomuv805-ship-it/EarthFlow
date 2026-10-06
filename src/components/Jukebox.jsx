@@ -2,6 +2,7 @@ import { Suspense, lazy, useEffect, useRef, useState } from 'react'
 import { LuPlay, LuPause, LuShare2, LuCheck, LuSend } from 'react-icons/lu'
 const Chart = lazy(() => import('./Chart'))
 import SectionHead from './SectionHead'
+import CopyBox from './CopyBox'
 import { usePrefs } from '../prefs'
 
 const fmt = (v, d, signed) => `${signed && v > 0 ? '+' : ''}${v.toFixed(d)}`
@@ -9,6 +10,7 @@ const fmt = (v, d, signed) => `${signed && v > 0 ? '+' : ''}${v.toFixed(d)}`
 export default function Jukebox({ datasets, active, onSelect, data, unit, source, ds, index, playing, onPlay, onStop, onSeek, speed, onSpeed }) {
   const { t, lang } = usePrefs()
   const [copied, setCopied] = useState(false)
+  const [manual, setManual] = useState('')
   const timer = useRef(null)
   useEffect(() => () => clearTimeout(timer.current), [])
 
@@ -27,7 +29,8 @@ export default function Jukebox({ datasets, active, onSelect, data, unit, source
   const text = t('shareText', { title, y: cur.year })
 
   const copy = async (url) => {
-    try { await navigator.clipboard.writeText(url) } catch { window.prompt(t('share'), url); return }
+    try { await navigator.clipboard.writeText(url) } catch { setManual(url); return }
+    setManual('')
     setCopied(true)
     clearTimeout(timer.current)
     timer.current = setTimeout(() => setCopied(false), 2200)
@@ -94,6 +97,7 @@ export default function Jukebox({ datasets, active, onSelect, data, unit, source
           </button>
           <button className="btn ghost sm" onClick={onTelegram}><LuSend aria-hidden="true" /> {t('shareTelegram')}</button>
         </div>
+        {manual && <CopyBox text={manual} onClose={() => setManual('')} />}
       </div>
     </section>
   )
