@@ -22,3 +22,6 @@ createRoot(document.getElementById('root')).render(
     </PrefsProvider>
   </StrictMode>,
 )
+
+// Yuklash ekrani: ilova chizilgach yopiladi
+requestAnimationFrame(() => window.__bootMounted?.())

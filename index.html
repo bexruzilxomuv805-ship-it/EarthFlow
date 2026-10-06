@@ -33,8 +33,97 @@
     <meta name="twitter:title" content="EarthFlow: Yerning ovozini eshiting" />
     <meta name="twitter:description" content="NASA va NOAA ma'lumotlari musiqaga aylandi. Harorat, CO₂ va dengiz sathi o'zgarishini bir necha soniyada eshiting." />
     <meta name="twitter:image" content="https://earth-flow-uz.vercel.app/EARTH_RASMLAR/tungi-yer.jpg" />
+
+    <link rel="preload" as="image" href="/EARTH_RASMLAR/tungi-yer.jpg" />
+    <link rel="preload" as="image" href="/textures/earth-blue-marble.jpg" />
+    <style>
+      /* Kirish yuklash ekrani: sahifa ochilishi bilan darrov ko'rinadi */
+      html.booting { overflow: hidden; }
+      #boot { position: fixed; inset: 0; z-index: 10000; display: grid; place-items: center; overflow: hidden; color: #e8eefc; font-family: 'Space Grotesk', system-ui, sans-serif; background: #02040c; transition: opacity .6s ease, transform .6s ease, visibility .6s; }
+      #boot.done { opacity: 0; transform: scale(1.04); visibility: hidden; pointer-events: none; }
+      #boot .bg { position: absolute; inset: 0; background: linear-gradient(180deg, rgba(2,4,12,.55), rgba(2,4,12,.82)), url('/EARTH_RASMLAR/tungi-yer.jpg') center 65% / cover no-repeat; }
+      #boot .stage { position: relative; display: grid; justify-items: center; gap: 26px; padding: 24px; text-align: center; }
+      #boot .scene { position: relative; width: 210px; height: 210px; perspective: 900px; margin: 54px 0 34px; }
+      #boot .globe { position: absolute; inset: 0; border-radius: 50%; background: url('/textures/earth-blue-marble.jpg') 0 0 / auto 100% repeat-x; animation: boot-spin 26s linear infinite; box-shadow: inset -34px -12px 56px rgba(0,0,0,.92), inset 6px 6px 22px rgba(120,190,255,.3), 0 0 70px rgba(47,123,229,.55); }
+      #boot .globe::after { content: ''; position: absolute; inset: 0; border-radius: 50%; background: repeating-linear-gradient(0deg, rgba(120,200,255,.0) 0 5px, rgba(120,200,255,.07) 5px 6px); mix-blend-mode: screen; }
+      #boot .ring { position: absolute; left: 50%; top: 50%; border-radius: 50%; border: 1.5px solid rgba(90,209,255,.55); transform-style: preserve-3d; }
+      #boot .ring i { position: absolute; left: 50%; top: -5px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%; background: #ffb454; box-shadow: 0 0 12px #ffb454; }
+      #boot .r1 { width: 330px; height: 330px; margin: -165px 0 0 -165px; animation: boot-r1 9s linear infinite; }
+      #boot .r2 { width: 380px; height: 380px; margin: -190px 0 0 -190px; border-color: rgba(143,220,255,.35); animation: boot-r2 14s linear infinite reverse; }
+      #boot .r3 { width: 290px; height: 290px; margin: -145px 0 0 -145px; border-style: dashed; border-color: rgba(90,209,255,.3); animation: boot-r3 18s linear infinite; }
+      #boot .r2 i { background: #8fdcff; box-shadow: 0 0 12px #8fdcff; }
+      #boot .r3 i { background: #fff; box-shadow: 0 0 10px #fff; }
+      @keyframes boot-spin { to { background-position: -420px 0; } }
+      @keyframes boot-r1 { from { transform: rotateX(72deg) rotateY(18deg) rotateZ(0); } to { transform: rotateX(72deg) rotateY(18deg) rotateZ(360deg); } }
+      @keyframes boot-r2 { from { transform: rotateX(62deg) rotateY(-32deg) rotateZ(0); } to { transform: rotateX(62deg) rotateY(-32deg) rotateZ(360deg); } }
+      @keyframes boot-r3 { from { transform: rotateX(80deg) rotateY(54deg) rotateZ(0); } to { transform: rotateX(80deg) rotateY(54deg) rotateZ(360deg); } }
+      #boot .brand { font-weight: 700; font-size: 22px; letter-spacing: .14em; text-transform: uppercase; }
+      #boot .sub { margin: -14px 0 0; font-size: 14px; color: #9fb3d9; letter-spacing: .04em; }
+      #boot .bar { width: min(320px, 70vw); height: 4px; border-radius: 999px; background: rgba(255,255,255,.12); overflow: hidden; }
+      #boot .bar span { display: block; height: 100%; width: 0; border-radius: 999px; background: linear-gradient(90deg, #2f7be5, #5ad1ff); box-shadow: 0 0 14px rgba(90,209,255,.8); }
+      #boot .pct { font-variant-numeric: tabular-nums; font-size: 13px; letter-spacing: .2em; color: #8fdcff; margin-top: -12px; }
+      @media (max-width: 480px) { #boot .scene { transform: scale(.8); margin: 40px 0 24px; } }
+      @media (prefers-reduced-motion: reduce) { #boot .globe, #boot .ring { animation: none; } #boot .ring { transform: rotateX(72deg); } }
+    </style>
   </head>
   <body>
+    <div id="boot" role="status" aria-live="polite">
+      <div class="bg"></div>
+      <div class="stage">
+        <div class="scene" aria-hidden="true">
+          <div class="ring r1"><i></i></div>
+          <div class="ring r2"><i></i></div>
+          <div class="ring r3"><i></i></div>
+          <div class="globe"></div>
+        </div>
+        <div class="brand">EarthFlow</div>
+        <p class="sub" id="boot-sub"></p>
+        <div class="bar"><span id="boot-bar"></span></div>
+        <div class="pct" id="boot-pct">0%</div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var boot = document.getElementById('boot');
+        if (!boot) return;
+        var seen = false;
+        try { seen = sessionStorage.getItem('booted') === '1'; } catch (e) {}
+        if (seen) { boot.parentNode.removeChild(boot); return; }
+        var T = {
+          uz: "NASA va NOAA ma'lumotlari yuklanmoqda",
+          en: 'Loading NASA and NOAA data',
+          ru: 'Загрузка данных NASA и NOAA'
+        };
+        var lang = 'uz';
+        try { var l = localStorage.getItem('lang'); if (l === 'en' || l === 'ru') lang = l; } catch (e) {}
+        document.getElementById('boot-sub').textContent = T[lang];
+        document.documentElement.className += ' booting';
+        var bar = document.getElementById('boot-bar'), pct = document.getElementById('boot-pct');
+        var start = Date.now(), p = 0, loaded = document.readyState === 'complete', mounted = false, finished = false;
+        window.addEventListener('load', function () { loaded = true; });
+        window.__bootMounted = function () { mounted = true; };
+        function finish() {
+          if (finished) return; finished = true;
+          boot.className += ' done';
+          document.documentElement.className = document.documentElement.className.replace(' booting', '');
+          try { sessionStorage.setItem('booted', '1'); } catch (e) {}
+          setTimeout(function () { if (boot.parentNode) boot.parentNode.removeChild(boot); }, 800);
+        }
+        function tick() {
+          if (finished) return;
+          var el = Date.now() - start;
+          var ready = loaded && mounted;
+          var target = ready ? 100 : Math.min(90, 6 + el / 55);
+          p += (target - p) * 0.07;
+          if (ready && p > 99.4) p = 100;
+          bar.style.width = p.toFixed(1) + '%';
+          pct.textContent = Math.round(p) + '%';
+          if ((p >= 100 && el > 1600) || el > 9000) { finish(); return; }
+          requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      })();
+    </script>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
