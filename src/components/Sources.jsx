@@ -1,15 +1,7 @@
-import { LuExternalLink } from 'react-icons/lu'
 import { DATASETS } from '../data/datasets'
 import { usePrefs } from '../prefs'
 import SectionHead from './SectionHead'
 
-const URLS = {
-  temperature: 'https://data.giss.nasa.gov/gistemp/',
-  co2: 'https://gml.noaa.gov/ccgg/trends/',
-  sealevel: 'https://www.star.nesdis.noaa.gov/socd/lsa/SeaLevelRise/',
-  weather: 'https://open-meteo.com/',
-  apod: 'https://apod.nasa.gov/apod/',
-}
 const IDS = ['temperature', 'co2', 'sealevel', 'weather', 'apod']
 
 export default function Sources({ id = 'manbalar' }) {
@@ -30,10 +22,10 @@ export default function Sources({ id = 'manbalar' }) {
               <dl>
                 <div><dt>{t('srcOrg')}</dt><dd>{t(`src_${sid}_org`)}</dd></div>
                 <div><dt>{t('srcPeriod')}</dt><dd>{period}</dd></div>
+                {ds && <div><dt>{t('srcValues')}</dt><dd>{data[0].year}: {data[0].value} {ds.json.unit} → {data[data.length - 1].year}: {data[data.length - 1].value} {ds.json.unit}</dd></div>}
                 <div><dt>{t('srcHow')}</dt><dd>{t(`src_${sid}_how`)}</dd></div>
                 <div><dt>{t('srcLimit')}</dt><dd>{t(`src_${sid}_limit`)}{sample ? ` (${t('sampleNote')})` : ''}</dd></div>
               </dl>
-              <a className="link" href={URLS[sid]} target="_blank" rel="noopener noreferrer"><LuExternalLink aria-hidden="true" /> {t('srcOpen')}</a>
             </article>
           )
         })}

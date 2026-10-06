@@ -27,7 +27,7 @@ export const EXTRA = {
     cmpPosHint: "0% eng past, 100% eng yuqori qiymat", cmpDiff: 'Farq (2 − 1)', cmpUnits: "Birliklar har xil, shuning uchun farq hisoblanmaydi. Qatordagi o'rin foizini solishtiring.", cmpSwap: 'Almashtirish',
 
     srcTag: 'MANBALAR', srcTitle: "Ma'lumot qayerdan va nimani bildirmaydi", srcLead: "Har bir raqam ortida manba bor. Har bir manba uchun cheklovni ham yozdik, chunki hech bir ma'lumot hamma narsani aytib bermaydi.",
-    srcOrg: 'Tashkilot', srcPeriod: 'Davr', srcHow: 'Qanday o‘lchanadi', srcLimit: 'Cheklov', srcOpen: 'Manbani ochish', srcLive: 'jonli',
+    srcOrg: 'Tashkilot', srcPeriod: 'Davr', srcHow: 'Qanday o‘lchanadi', srcLimit: 'Cheklov', srcValues: 'Saytdagi qiymatlar', srcLive: 'jonli',
     src_temperature_org: 'NASA Goddard Institute for Space Studies (GISS), GISTEMP v4',
     src_temperature_how: "Quruqlik va okean o'lchovlari 1951–1980 yillar o'rtachasiga nisbatan farq (anomaliya) sifatida beriladi.",
     src_temperature_limit: "Bu mutlaq harorat emas, farq. Mintaqaviy o'zgarishlar global o'rtachadan katta yoki kichik bo'lishi mumkin. Joriy yil hali tugamagan bo'lishi mumkin.",
@@ -85,7 +85,7 @@ export const EXTRA = {
     cmpPosHint: '0% is the lowest value, 100% the highest', cmpDiff: 'Difference (2 − 1)', cmpUnits: 'The units differ, so no difference is computed. Compare the position percentages.', cmpSwap: 'Swap',
 
     srcTag: 'SOURCES', srcTitle: 'Where the data comes from and what it cannot tell you', srcLead: 'Every number has a source behind it. For each source we also wrote the limits, because no dataset tells the whole story.',
-    srcOrg: 'Organization', srcPeriod: 'Period', srcHow: 'How it is measured', srcLimit: 'Limitation', srcOpen: 'Open source', srcLive: 'live',
+    srcOrg: 'Organization', srcPeriod: 'Period', srcHow: 'How it is measured', srcLimit: 'Limitation', srcValues: 'Values on this site', srcLive: 'live',
     src_temperature_org: 'NASA Goddard Institute for Space Studies (GISS), GISTEMP v4',
     src_temperature_how: 'Land and ocean measurements, given as a difference (anomaly) from the 1951–1980 average.',
     src_temperature_limit: 'This is a difference, not an absolute temperature. Regional changes can be larger or smaller than the global average. The latest year may be incomplete.',
@@ -143,7 +143,7 @@ export const EXTRA = {
     cmpPosHint: '0% самое низкое значение, 100% самое высокое', cmpDiff: 'Разница (2 − 1)', cmpUnits: 'Единицы разные, поэтому разница не считается. Сравните проценты места в ряду.', cmpSwap: 'Поменять',
 
     srcTag: 'ИСТОЧНИКИ', srcTitle: 'Откуда данные и чего они не говорят', srcLead: 'За каждой цифрой стоит источник. Для каждого мы написали и ограничения, потому что ни один набор данных не рассказывает всё.',
-    srcOrg: 'Организация', srcPeriod: 'Период', srcHow: 'Как измеряется', srcLimit: 'Ограничение', srcOpen: 'Открыть источник', srcLive: 'онлайн',
+    srcOrg: 'Организация', srcPeriod: 'Период', srcHow: 'Как измеряется', srcLimit: 'Ограничение', srcValues: 'Значения на сайте', srcLive: 'онлайн',
     src_temperature_org: 'NASA Goddard Institute for Space Studies (GISS), GISTEMP v4',
     src_temperature_how: 'Измерения суши и океана в виде отклонения (аномалии) от среднего за 1951–1980.',
     src_temperature_limit: 'Это разница, а не абсолютная температура. Региональные изменения могут быть больше или меньше среднего по миру. Последний год может быть неполным.',
