@@ -2,7 +2,7 @@ import { DATASETS } from '../data/datasets'
 import { usePrefs } from '../prefs'
 import SectionHead from './SectionHead'
 
-const IDS = ['temperature', 'co2', 'sealevel', 'weather', 'apod']
+const IDS = ['temperature', 'co2', 'sealevel', 'nasa', 'weather', 'apod']
 
 export default function Sources({ id = 'manbalar' }) {
   const { t } = usePrefs()

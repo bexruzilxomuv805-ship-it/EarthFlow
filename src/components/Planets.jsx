@@ -6,12 +6,12 @@ import { useNearScreen } from '../hooks/useNearScreen'
 
 // Diametr (km): sharning o'lchami haqiqiy nisbatda bo'ladi
 const PLANETS = [
-  { n: 1, d: 12742, cls: 'earth' },
+  { n: 1, d: 12756, cls: 'earth' },
   { n: 2, d: 12104, cls: 'venus' },
-  { n: 3, d: 6779, cls: 'mars' },
+  { n: 3, d: 6780, cls: 'mars' },
 ]
 const ROWS = ['diam', 'temp', 'day', 'year', 'grav', 'atm', 'moons']
-const MAX_D = 12742
+const MAX_D = 12756
 
 function Planet({ n, d, cls }) {
   const { t } = usePrefs()

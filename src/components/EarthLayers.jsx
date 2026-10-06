@@ -13,8 +13,7 @@ const base = import.meta.env.BASE_URL
 // Sxematik radiuslar (po'st ko'rinishi uchun qalinlashtirilgan). outer > inner.
 const LAYERS = [
   { outer: 1.0, inner: 0.93, color: '#6b5a48', glow: 0, labelAngle: 62 },
-  { outer: 0.93, inner: 0.7, color: '#a1522b', glow: 0.1, labelAngle: 40 },
-  { outer: 0.7, inner: 0.47, color: '#cf5a1c', glow: 0.25, labelAngle: 14 },
+  { outer: 0.93, inner: 0.47, color: '#b8571f', glow: 0.18, labelAngle: 28 },
   { outer: 0.47, inner: 0.22, color: '#ff8c1a', glow: 0.7, labelAngle: -18 },
   { outer: 0.22, inner: 0, color: '#ffe27a', glow: 1.1, labelAngle: -50 },
 ]
@@ -154,7 +153,7 @@ export default function EarthLayers() {
             <h3><span className="dot lg" style={{ background: LAYERS[cur].color }} aria-hidden="true" /> {t(`il${n}_name`)}</h3>
             <dl>
               <div><dt>{t('intDepth')}</dt><dd>{t(`il${n}_depth`)}</dd></div>
-              <div><dt>{t('intTemp')}</dt><dd>{t(`il${n}_temp`)}</dd></div>
+              {t(`il${n}_temp`) && <div><dt>{t('intTemp')}</dt><dd>{t(`il${n}_temp`)}</dd></div>}
               <div><dt>{t('intState')}</dt><dd>{t(`il${n}_state`)}</dd></div>
             </dl>
             <p className="muted">{t(`il${n}_text`)}</p>
