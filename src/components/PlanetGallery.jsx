@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import { LuImage } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
+import { IMAGE_CAPTIONS } from '../data/planetImages'
 
 const base = import.meta.env.BASE_URL
 const EXTS = ['jpg', 'jpeg', 'png', 'webp']
 const SLOTS = 6 // <id>.jpg, <id>-2.jpg ... <id>-6.jpg (jpg, jpeg, png yoki webp)
 
 // Bitta rasm o'rni: kengaytmalarni birin-ketin sinaydi, topilmasa hech narsa chizmaydi
-function Slot({ id, n, name, onResult }) {
+function Slot({ id, n, name, caption, onResult }) {
   const [ext, setExt] = useState(0)
   const [ok, setOk] = useState(false)
   const file = n === 1 ? id : `${id}-${n}`
@@ -20,13 +21,15 @@ function Slot({ id, n, name, onResult }) {
         onLoad={() => { setOk(true); onResult(n, true) }}
         onError={() => { if (ext + 1 >= EXTS.length) onResult(n, false); setExt(ext + 1) }}
       />
+      {caption && <figcaption className="cap"><span className="muted small">{caption}</span></figcaption>}
     </figure>
   )
 }
 
 // Sayyoraning rasmlari: public/planets/<id>.jpg, <id>-2.jpg, ... Rasm bo'lmasa chiroyli joy ko'rsatiladi
 export default function PlanetGallery({ id, name, color }) {
-  const { t } = usePrefs()
+  const { t, lang } = usePrefs()
+  const caps = IMAGE_CAPTIONS[id]?.[lang] || []
   const [res, setRes] = useState({})
   const onResult = (n, ok) => setRes((r) => (r[n] === ok ? r : { ...r, [n]: ok }))
   const settled = Object.keys(res).length === SLOTS
@@ -34,7 +37,7 @@ export default function PlanetGallery({ id, name, color }) {
   return (
     <div className="pg">
       <div className="grid pg-grid">
-        {Array.from({ length: SLOTS }, (_, i) => <Slot key={i} id={id} n={i + 1} name={name} onResult={onResult} />)}
+        {Array.from({ length: SLOTS }, (_, i) => <Slot key={i} id={id} n={i + 1} name={name} caption={caps[i]} onResult={onResult} />)}
       </div>
       {settled && !any && (
         <div className="pg-empty glass" style={{ '--c': color }}>
