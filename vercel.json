@@ -1,5 +1,12 @@
 {
   "rewrites": [
+    { "source": "/jukebox", "destination": "/index.html" },
+    { "source": "/taqqoslash", "destination": "/index.html" },
+    { "source": "/dengiz", "destination": "/index.html" },
+    { "source": "/ob-havo", "destination": "/index.html" },
+    { "source": "/viktorina", "destination": "/index.html" },
+    { "source": "/sayyoralar", "destination": "/index.html" },
+    { "source": "/qanday-ishlaydi", "destination": "/index.html" },
     { "source": "/science", "destination": "/index.html" },
     { "source": "/about", "destination": "/index.html" }
   ]

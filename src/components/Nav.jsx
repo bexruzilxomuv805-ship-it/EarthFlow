@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { LuScale, LuFlaskConical, LuInfo, LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX, LuChevronDown } from 'react-icons/lu'
+import { LuScale, LuFlaskConical, LuInfo, LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX, LuChevronDown, LuBox } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
 import { Link } from '../router'
 import { SearchButton } from './Search'
@@ -7,21 +7,21 @@ import { LANGS } from '../i18n'
 
 const base = import.meta.env.BASE_URL
 const LINKS = [
-  { href: '#jukebox', key: 'navJukebox', Icon: LuMusic },
-  { href: '#taqqos', key: 'navCompare', Icon: LuScale },
+  { page: '/jukebox', key: 'navJukebox', Icon: LuMusic },
+  { page: '/taqqoslash', key: 'navCompare', Icon: LuScale },
+  { page: '/dengiz', key: 'navSea', Icon: LuWaves },
+  { page: '/ob-havo', key: 'navWeather', Icon: LuCloudSun },
+  { page: '/viktorina', key: 'navQuiz', Icon: LuBrain },
+  { href: '#gologramma', key: 'navHolo', Icon: LuBox },
   { href: '#ichki', key: 'navInterior', Icon: LuTarget },
-  { href: '#dengiz', key: 'navSea', Icon: LuWaves },
-  { href: '#obhavo', key: 'navWeather', Icon: LuCloudSun },
-  { href: '#layers', key: 'navLayers', Icon: LuLayers },
-  { href: '#rasmlar', key: 'navPhotos', Icon: LuImage },
-  { href: '#sayyoralar', key: 'navPlanets', Icon: LuOrbit },
   { href: '#faktlar', key: 'navFacts', Icon: LuSparkles },
-  { href: '#viktorina', key: 'navQuiz', Icon: LuBrain },
-  { href: '#how', key: 'navHow', Icon: LuCog },
+  { href: '#rasmlar', key: 'navPhotos', Icon: LuImage },
+  { page: '/sayyoralar', key: 'navPlanets', Icon: LuOrbit },
+  { page: '/qanday-ishlaydi', key: 'navHow', Icon: LuCog },
   { page: '/science', key: 'navScience', Icon: LuFlaskConical },
   { page: '/about', key: 'navAbout', Icon: LuInfo },
 ]
-const MAIN = ['#jukebox', '#taqqos', '#dengiz', '#obhavo', '#viktorina'] // sarlavhada ko'rinadiganlar, qolgani "Yana" ro'yxatida
+const MAIN = ['/jukebox', '/taqqoslash', '/dengiz', '/ob-havo', '/viktorina'] // sarlavhada ko'rinadiganlar, qolgani "Yana" ro'yxatida
 
 // Bosh sahifada belgi (#id), boshqa sahifada "/#id"; sahifa havolalari alohida
 function Item({ item, path, active, onClick, t }) {
@@ -81,8 +81,8 @@ export default function Nav({ path = '/', onSearch }) {
     return () => { window.removeEventListener('keydown', onKey); document.removeEventListener('pointerdown', onDown) }
   }, [more])
 
-  const main = LINKS.filter((l) => MAIN.includes(l.href))
-  const rest = LINKS.filter((l) => !MAIN.includes(l.href))
+  const main = LINKS.filter((l) => MAIN.includes(l.page))
+  const rest = LINKS.filter((l) => !MAIN.includes(l.page))
   const moreActive = rest.some((l) => (l.page ? path === l.page : active === l.href))
 
   return (
@@ -90,7 +90,7 @@ export default function Nav({ path = '/', onSearch }) {
       <div className="nav-bar">
         <Link className="brand" to="/" onClick={() => { if (path === '/') window.scrollTo({ top: 0, behavior: 'smooth' }) }}><img className="logo" src={`${base}logo.png`} alt="" width="40" height="40" /> <span>{t('brand')}</span></Link>
         <nav className="nav-links" aria-label={t('navLabel')}>
-          {main.map((item) => <Item key={item.href} item={item} path={path} active={active} t={t} />)}
+          {main.map((item) => <Item key={item.page} item={item} path={path} active={active} t={t} />)}
           <div className="nav-more">
             <button type="button" className={`more-btn ${moreActive ? 'active' : ''}`} aria-haspopup="true" aria-expanded={more} onClick={() => setMore((m) => !m)}>
               {t('navMore')} <LuChevronDown aria-hidden="true" />

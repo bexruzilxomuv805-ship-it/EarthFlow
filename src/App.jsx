@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { Suspense, lazy, useEffect, useState } from 'react'
 import { usePrefs } from './prefs'
 import { Link, useLocation } from './router'
 import Nav from './components/Nav'
@@ -8,16 +8,49 @@ import Search from './components/Search'
 import Home from './pages/Home'
 import Science from './pages/Science'
 import About from './pages/About'
+import JukeboxPage from './pages/JukeboxPage'
+import Shell from './pages/Shell'
+import Compare from './components/Compare'
+import Numbers from './components/Numbers'
+import Weather from './components/Weather'
+import Quiz from './components/Quiz'
+import How from './components/How'
 import { LuArrowUp } from 'react-icons/lu'
 import './App.css'
 import './extra.css'
 
+const SeaLevel = lazy(() => import('./components/SeaLevel'))
+const Planets = lazy(() => import('./components/Planets'))
+const Later = ({ h = 560, children }) => <Suspense fallback={<div className="skel" style={{ minHeight: h }} aria-hidden="true" />}>{children}</Suspense>
+
 const base = import.meta.env.BASE_URL
+
+// Har bir bo'lim o'z havolasida: yo'l -> sahifa va sarlavha kaliti
+const ROUTES = {
+  '/jukebox': { title: 'navJukebox', el: <JukeboxPage /> },
+  '/taqqoslash': { title: 'navCompare', el: <Shell><Compare /><Numbers /></Shell> },
+  '/dengiz': { title: 'navSea', el: <Shell><Later h={640}><SeaLevel /></Later></Shell> },
+  '/ob-havo': { title: 'navWeather', el: <Shell><Weather /></Shell> },
+  '/viktorina': { title: 'navQuiz', el: <Shell><Quiz /></Shell> },
+  '/sayyoralar': { title: 'navPlanets', el: <Shell><Later h={700}><Planets /></Later></Shell> },
+  '/qanday-ishlaydi': { title: 'navHow', el: <Shell><How /></Shell> },
+  '/science': { title: 'navScience', el: <Science /> },
+  '/about': { title: 'navAbout', el: <About /> },
+}
+
+// Eski havolalar (#belgi yoki ?d=...) yangi manzilga o'tkaziladi
+const LEGACY = { jukebox: '/jukebox', dengiz: '/dengiz', obhavo: '/ob-havo', viktorina: '/viktorina', sayyoralar: '/sayyoralar', how: '/qanday-ishlaydi', taqqos: '/taqqoslash', raqamlar: '/taqqoslash', manbalar: '/science' }
+if (window.location.pathname === '/') {
+  const sp = new URLSearchParams(window.location.search)
+  const target = LEGACY[window.location.hash.slice(1)] || (sp.has('d') || sp.has('y') ? '/jukebox' : null)
+  if (target) window.history.replaceState(null, '', target + window.location.search)
+}
 
 export default function App() {
   const { t } = usePrefs()
   const { path, hash } = useLocation()
   const [searchOpen, setSearchOpen] = useState(false)
+  const route = ROUTES[path]
 
   // Ctrl+K yoki "/" qidiruvni ochadi
   useEffect(() => {
@@ -43,9 +76,8 @@ export default function App() {
   }, [path, hash])
 
   useEffect(() => {
-    const name = path === '/science' ? t('navScience') : path === '/about' ? t('navAbout') : null
-    document.title = name ? `${name} · EarthFlow` : 'EarthFlow'
-  }, [path, t])
+    document.title = route ? `${t(route.title)} · EarthFlow` : 'EarthFlow'
+  }, [route, t])
 
   return (
     <>
@@ -54,7 +86,7 @@ export default function App() {
       <InstallPrompt />
       <Search open={searchOpen} onClose={() => setSearchOpen(false)} />
 
-      {path === '/science' ? <Science /> : path === '/about' ? <About /> : <Home />}
+      {route ? route.el : <Home />}
 
       <footer className="footer">
         <img className="logo foot" src={`${base}logo.png`} alt={t('footerLogo')} width="56" height="56" />

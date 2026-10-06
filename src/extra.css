@@ -139,3 +139,10 @@ input[type=range]:hover::-webkit-slider-thumb { transform: scale(1.12); }
 .more-panel a.active svg { color: var(--cyan); }
 .nav-links a::after { display: none; }
 .nav-links > a::after { display: block; }
+
+/* ===== Gologramma ===== */
+.holo-stage { position: relative; aspect-ratio: 16 / 9; max-height: 620px; width: 100%; margin-top: 24px; overflow: hidden; background: radial-gradient(ellipse at 50% 85%, rgba(47,208,255,.16), transparent 60%), rgba(2,6,20,.82); }
+.holo-stage canvas { position: absolute; inset: 0; }
+.holo-hint { text-align: center; margin: 12px 0 0; }
+@media (max-width: 700px) { .holo-stage { aspect-ratio: 1 / 1; } }
+.page-body { padding-top: 8px; padding-bottom: 64px; min-height: 60vh; }

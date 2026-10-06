@@ -23,7 +23,8 @@ export default function Jukebox({ datasets, active, onSelect, data, unit, source
   const shareUrl = () => {
     const u = new URL(window.location.href)
     u.search = new URLSearchParams({ d: ds.id, y: String(cur.year), lang }).toString()
-    u.hash = 'jukebox'
+    u.pathname = '/jukebox'
+    u.hash = ''
     return u.toString()
   }
   const text = t('shareText', { title, y: cur.year })

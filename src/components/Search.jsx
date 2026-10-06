@@ -5,9 +5,9 @@ import { usePrefs } from '../prefs'
 import { go } from '../router'
 
 const SECTIONS = [
-  ['#jukebox', 'navJukebox'], ['#taqqos', 'navCompare'], ['#raqamlar', 'navNumbers'], ['#ichki', 'navInterior'], ['#dengiz', 'navSea'],
-  ['#obhavo', 'navWeather'], ['#layers', 'navLayers'], ['#rasmlar', 'navPhotos'], ['#sayyoralar', 'navPlanets'],
-  ['#faktlar', 'navFacts'], ['#viktorina', 'navQuiz'], ['#how', 'navHow'], ['#manbalar', 'navScience'],
+  ['/jukebox', 'navJukebox'], ['/taqqoslash', 'navCompare'], ['/dengiz', 'navSea'], ['/ob-havo', 'navWeather'], ['/viktorina', 'navQuiz'],
+  ['/sayyoralar', 'navPlanets'], ['/qanday-ishlaydi', 'navHow'], ['/science', 'navScience'], ['/about', 'navAbout'],
+  ['/#gologramma', 'navHolo'], ['/#ichki', 'navInterior'], ['/#faktlar', 'navFacts'], ['/#rasmlar', 'navPhotos'],
 ]
 
 export function SearchButton({ onOpen }) {
@@ -27,8 +27,8 @@ export default function Search({ open, onClose }) {
 
   const items = useMemo(() => {
     const list = []
-    for (const [href, key] of SECTIONS) list.push({ group: 'searchSections', label: t(key), hint: '', to: `/${href}` })
-    for (const ds of DATASETS) list.push({ group: 'searchData', label: t(`ds_${ds.id}_label`), hint: t(`ds_${ds.id}_desc`), to: '/#jukebox' })
+    for (const [href, key] of SECTIONS) list.push({ group: 'searchSections', label: t(key), hint: '', to: href })
+    for (const ds of DATASETS) list.push({ group: 'searchData', label: t(`ds_${ds.id}_label`), hint: t(`ds_${ds.id}_desc`), to: '/jukebox' })
     for (let i = 1; i <= 6; i++) list.push({ group: 'searchFacts', label: `${t(`f${i}_v`)} ${t(`f${i}_u`)}`, hint: t(`f${i}_t`), to: '/#faktlar' })
     for (let i = 1; i <= 8; i++) list.push({ group: 'searchPlaces', label: t(`sp${i}_name`), hint: t(`sp${i}_text`), to: '/#hero' })
     return list
