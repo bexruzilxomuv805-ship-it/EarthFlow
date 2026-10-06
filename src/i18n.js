@@ -1,4 +1,5 @@
 // Barcha matnlar shu yerda: uz (asosiy), en, ru
+import { EXTRA } from './i18n-extra'
 export const LANGS = ['uz', 'en', 'ru']
 
 export const DICT = {
@@ -677,3 +678,5 @@ export const DICT = {
     toTop: 'Наверх',
   },
 }
+
+for (const l of LANGS) Object.assign(DICT[l], EXTRA[l])

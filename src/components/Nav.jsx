@@ -1,11 +1,14 @@
 import { useEffect, useState } from 'react'
-import { LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX } from 'react-icons/lu'
+import { LuScale, LuFlaskConical, LuInfo, LuMusic, LuLayers, LuImage, LuCog, LuSparkles, LuSun, LuMoon, LuTarget, LuWaves, LuOrbit, LuBrain, LuCloudSun, LuMenu, LuX } from 'react-icons/lu'
 import { usePrefs } from '../prefs'
+import { Link } from '../router'
+import { SearchButton } from './Search'
 import { LANGS } from '../i18n'
 
 const base = import.meta.env.BASE_URL
 const LINKS = [
   { href: '#jukebox', key: 'navJukebox', Icon: LuMusic },
+  { href: '#taqqos', key: 'navCompare', Icon: LuScale },
   { href: '#ichki', key: 'navInterior', Icon: LuTarget },
   { href: '#dengiz', key: 'navSea', Icon: LuWaves },
   { href: '#obhavo', key: 'navWeather', Icon: LuCloudSun },
@@ -15,9 +18,22 @@ const LINKS = [
   { href: '#faktlar', key: 'navFacts', Icon: LuSparkles },
   { href: '#viktorina', key: 'navQuiz', Icon: LuBrain },
   { href: '#how', key: 'navHow', Icon: LuCog },
+  { page: '/science', key: 'navScience', Icon: LuFlaskConical },
+  { page: '/about', key: 'navAbout', Icon: LuInfo },
 ]
+const SPLIT = 6
 
-export default function Nav() {
+// Bosh sahifada belgi (#id), boshqa sahifada "/#id"; sahifa havolalari alohida
+function Item({ item, path, active, onClick, t }) {
+  const { href, page, key, Icon } = item
+  const isActive = page ? path === page : active === href
+  const props = { className: isActive ? 'active' : '', 'aria-current': isActive ? (page ? 'page' : 'true') : undefined, onClick }
+  const body = <><Icon aria-hidden="true" /> {t(key)}</>
+  if (page) return <Link to={page} {...props}>{body}</Link>
+  return path === '/' ? <a href={href} {...props}>{body}</a> : <Link to={`/${href}`} {...props}>{body}</Link>
+}
+
+export default function Nav({ path = '/', onSearch }) {
   const { t, lang, setLang, theme, toggleTheme } = usePrefs()
   const [active, setActive] = useState('')
   const [open, setOpen] = useState(false)
@@ -28,9 +44,10 @@ export default function Nav() {
     let raf = 0
     const update = () => {
       raf = 0
-      const line = window.innerWidth <= 1100 ? 90 : 150
+      const line = window.innerWidth <= 1360 ? 90 : 150
       let cur = ''
       for (const { href } of LINKS) {
+        if (!href) continue
         const el = document.getElementById(href.slice(1))
         if (el && el.getBoundingClientRect().top <= line) cur = href
       }
@@ -56,13 +73,11 @@ export default function Nav() {
   return (
     <header className="nav">
       <div className="nav-bar">
-        <a className="brand" href="#top"><img className="logo" src={`${base}logo.png`} alt="" width="40" height="40" /> <span>{t('brand')}</span></a>
+        <Link className="brand" to="/" onClick={() => { if (path === '/') window.scrollTo({ top: 0, behavior: 'smooth' }) }}><img className="logo" src={`${base}logo.png`} alt="" width="40" height="40" /> <span>{t('brand')}</span></Link>
         <nav className="nav-links" aria-label={t('navLabel')}>
-          {[LINKS.slice(0, 5), LINKS.slice(5)].map((row, i) => (
+          {[LINKS.slice(0, SPLIT), LINKS.slice(SPLIT)].map((row, i) => (
             <div className="nav-row" key={i}>
-              {row.map(({ href, key, Icon }) => (
-                <a key={href} href={href} className={active === href ? 'active' : ''} aria-current={active === href ? 'true' : undefined}><Icon aria-hidden="true" /> {t(key)}</a>
-              ))}
+              {row.map((item) => <Item key={item.href || item.page} item={item} path={path} active={active} t={t} />)}
             </div>
           ))}
         </nav>
@@ -72,6 +87,7 @@ export default function Nav() {
               <button key={l} className={l === lang ? 'on' : ''} aria-pressed={l === lang} onClick={() => setLang(l)}>{l.toUpperCase()}</button>
             ))}
           </div>
+          <SearchButton onOpen={onSearch} />
           <button className="icon-btn" onClick={toggleTheme} aria-label={themeLabel} title={themeLabel}>
             {theme === 'dark' ? <LuSun aria-hidden="true" /> : <LuMoon aria-hidden="true" />}
           </button>
@@ -87,11 +103,7 @@ export default function Nav() {
               <button key={l} className={l === lang ? 'on' : ''} aria-pressed={l === lang} onClick={() => setLang(l)}>{l.toUpperCase()}</button>
             ))}
           </div>
-          {LINKS.map(({ href, key, Icon }) => (
-            <a key={href} href={href} onClick={() => setOpen(false)} className={active === href ? 'active' : ''} aria-current={active === href ? 'true' : undefined}>
-              <Icon aria-hidden="true" /> {t(key)}
-            </a>
-          ))}
+          {LINKS.map((item) => <Item key={item.href || item.page} item={item} path={path} active={active} t={t} onClick={() => setOpen(false)} />)}
         </nav>
       )}
     </header>
